@@ -15,9 +15,9 @@ public abstract class Card {
 	}
 	
 	public String toString(){
-		return color;
+		return cardColor(colval);
 	}
-	public String card() {
+	public String cardColor(int colval) {
 		if (colval == 0) {
 			color = "Red";
 		} else if (colval == 1) {
@@ -26,6 +26,8 @@ public abstract class Card {
 			color = "Yellow";
 		} else if (colval == 3) {
 			color = "Green";
+		} else if (colval == 5) {
+			color = "";
 		}
 		return color;
 	}
