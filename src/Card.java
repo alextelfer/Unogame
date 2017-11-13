@@ -17,7 +17,7 @@ public abstract class Card {
 	public String toString(){
 		return color;
 	}
-	public String Card() {
+	public String card() {
 		if (colval == 0) {
 			color = "Red";
 		} else if (colval == 1) {

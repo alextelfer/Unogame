@@ -5,6 +5,10 @@ public class PlayerAI {
 	private ArrayList <Card> hand = new ArrayList <Card>();
 	private Logic logic = new Logic();
 	
+	public void initialize(Deck deck) {
+		deck.draw(7,this.hand);
+	}
+	
 	public void removeCard(Card playedCard) {
 		this.hand.remove(hand.indexOf(playedCard));
 	}
