@@ -1,5 +1,13 @@
 
 public class Controller {
+	private PlayerHuman player1 = new PlayerHuman();
+	private PlayerAI player2 = new PlayerAI();
+	private PlayerAI player3 = new PlayerAI();
+	private PlayerAI player4 = new PlayerAI();
+	
+	private Logic logic = new Logic();
+	private Deck deck = new Deck();
+	
 	public PlayerHuman getPlayer1() {
 		return player1;
 	}
@@ -22,15 +30,9 @@ public class Controller {
 		player3.initialize(deck);
 		player4.initialize(deck);
 	}
-
-	private PlayerHuman player1 = new PlayerHuman();
-	private PlayerAI player2 = new PlayerAI();
-	private PlayerAI player3 = new PlayerAI();
-	private PlayerAI player4 = new PlayerAI();
-	
-	private Deck deck = new Deck();
 	
 	public void play() {
-
+		System.out.println(deck.cardsLeft());
+		System.out.println(getPlayer1().getHand());
 	}
 }

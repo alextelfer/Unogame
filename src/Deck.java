@@ -5,7 +5,7 @@ public class Deck {
 	private ArrayList <Card> unoDeck = new ArrayList <Card> ();
 	
 	
-	public void createDeck(){
+	public Deck(){
 		for (int colval = 0; colval <= 3; colval++ ) {
 			for (int numval = 0; numval <= 10; numval++) {
 				unoDeck.add(new NumberCard(colval, numval));
@@ -22,5 +22,9 @@ public class Deck {
 		Random rand = new Random();
 		for (int i=0; i <numOfCards; i++)
 			player.add(unoDeck.remove(rand.nextInt(unoDeck.size())) );
+	}
+	
+	public int cardsLeft() {
+		return this.unoDeck.size();
 	}
 }
