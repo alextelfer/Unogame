@@ -26,16 +26,18 @@ public class Logic {
 		String topCardNumber = topCard.getNumber();
 		String cardPlayedColor = cardPlayed.getColor();
 		String cardPlayedNumber = cardPlayed.getNumber();
+		System.out.println("Colors:  " + cardPlayedColor + "  " + topCardColor);
+		System.out.println("Numbers:  " + cardPlayedNumber + "  " + topCardNumber);
 		if (cardPlayedColor.equals(topCardColor) || cardPlayedNumber.equals(topCardNumber)) {
 			valid = true;
-			gameState();
 		}
+		System.out.println(valid);
 		return valid;
 	}
 	
 	public void gameState(){
 		if (clockwise == true){
-			setPlayerTurn(playerTurn++);
+			setPlayerTurn(playerTurn+1);
 			if (playerTurn == 5) {
 				setPlayerTurn(1);
 			} 

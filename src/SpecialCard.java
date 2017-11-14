@@ -2,9 +2,10 @@
 public class SpecialCard extends Card{
 
 	private String number;
-	public int specval;
+	private int specval;
+	
 	public String getNumber() {
-		return number;
+		return this.number;
 	}
 
 	public void setNumber(String number) {

@@ -2,10 +2,10 @@
 public class NumberCard extends Card{
 	
 	private String number;
-	public int numval;
+	private int numval;
 	
 	public String getNumber() {
-		return number;
+		return this.number;
 	}
 
 	public void setNumber(String number) {
