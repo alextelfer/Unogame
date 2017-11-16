@@ -3,6 +3,12 @@ public class SpecialCard extends Card{
 
 	private String number;
 	public int specval;
+	
+	public int getSpecval() {
+		return specval;
+	}
+
+	@Override
 	public String getNumber() {
 		return number;
 	}
@@ -37,8 +43,10 @@ public class SpecialCard extends Card{
 		 } else if (specval == 4) {
 			super.colval = 5;
 			number = "Wild Draw 4";
-		 }
+		 } 
 	
 	}
-	//Put action here (maybe)
+	public SpecialCard() {
+		
+	}
 }

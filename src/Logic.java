@@ -36,13 +36,13 @@ public class Logic {
 	public void gameState(){
 		if (clockwise == true){
 			setPlayerTurn(playerTurn++);
-			if (playerTurn == 5) {
+			if (playerTurn > 4) {
 				setPlayerTurn(1);
 			} 
 		}
 		else {
 			setPlayerTurn(playerTurn--);
-			if (playerTurn == 0) {
+			if (playerTurn < 1) {
 				setPlayerTurn(4);
 			}
 		}
