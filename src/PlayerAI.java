@@ -16,25 +16,31 @@ public class PlayerAI {
 		this.hand.remove(hand.indexOf(playedCard));
 	}
 	
-	public Card cardAI(Logic logic, Card topCard) {
+	public Card cardAI(Deck deck,Logic logic, Card topCard) {
 		ArrayList <Card> validChoices = new ArrayList <Card>();
-		for (int index1 = 0;index1<hand.size();index1++) {
-			Card aCard = this.hand.get(index1);
-			System.out.println(hand);
-			System.out.println(aCard.getColor());
-			System.out.println(aCard.getNumber());
-			if (logic.isValid(topCard,hand.get(0))) {
-				validChoices.add(hand.get(index1));
-				if (validChoices.size() >= 1) {
-					for (int index2 = 0;index2<hand.size();index2++) {
-						if (hand.get(index2).getNumber().equals("Skip") || hand.get(index2).getNumber().equals("Reverse") || hand.get(index2).getNumber().equals("Draw 2") || hand.get(index2).getNumber().equals("") || hand.get(index2).getNumber().equals("Wild Draw 4")) {
-							return hand.get(index2);
+		Card cardPlayed;
+		while (validChoices.size() == 0) {
+			for (int index1 = 0;index1<hand.size();index1++) {
+				//DO NOT REMOVE THIS PRINT STATEMENT
+				System.out.println(hand);
+				if (logic.isValid(topCard,hand.get(index1))) {
+					validChoices.add(hand.get(index1));
+					/** Special card AI priority
+					if (validChoices.size() >= 1) {
+						for (int index2 = 0;index2<hand.size();index2++) {
+							if (hand.get(index2).getNumber().equals("Skip") || hand.get(index2).getNumber().equals("Reverse") || hand.get(index2).getNumber().equals("Draw 2") || hand.get(index2).getNumber().equals("") || hand.get(index2).getNumber().equals("Wild Draw 4")) {
+								System.out.println("here2");
+								cardPlayed = hand.get(index2);
+							}
 						}
-					}
+					}*/
 				}
 			}
+			if (validChoices.size() == 0) {
+				deck.draw(1,this.hand);
+			}
 		}
-		System.out.println(validChoices.size());
-		return validChoices.get(0);
+		cardPlayed = validChoices.get(0);
+		return cardPlayed;
 	}
 }

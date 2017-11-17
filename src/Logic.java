@@ -49,4 +49,14 @@ public class Logic {
 			}
 		}
 	}
+	public void numOfCards(PlayerHuman player1, PlayerHuman player2, PlayerAI player3, PlayerAI player4) {
+		int numPlayer1 = player1.getHand().size();
+		int numPlayer2 = player2.getHand().size();
+		int numPlayer3 = player3.getHand().size();
+		int numPlayer4 = player4.getHand().size();
+		System.out.println("Player 1 has " + numPlayer1 + " Cards");
+		System.out.println("Player 2 has " + numPlayer2 + " Cards");
+		System.out.println("Player 3 has " + numPlayer3 + " Cards");
+		System.out.println("Player 4 has " + numPlayer4 + " Cards");
+	}
 }

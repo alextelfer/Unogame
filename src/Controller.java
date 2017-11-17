@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 public class Controller {
 	private PlayerHuman player1 = new PlayerHuman();
-	private PlayerAI player2 = new PlayerAI();
+	private PlayerHuman player2 = new PlayerHuman();
 	private PlayerAI player3 = new PlayerAI();
 	private PlayerAI player4 = new PlayerAI();
 	private ArrayList <Card> topCard = new ArrayList <Card>();
@@ -15,7 +15,7 @@ public class Controller {
 		return player1;
 	}
 
-	public PlayerAI getPlayer2() {
+	public PlayerHuman getPlayer2() {
 		return player2;
 	}
 
@@ -41,10 +41,6 @@ public class Controller {
 		while (!gameComplete){
 			while (logic.isClockwise()) {
 				if (logic.getPlayerTurn() == 1) {
-					ArrayList<Card> someCard = player1.getHand();
-					Card card1 = someCard.get(0);
-					System.out.println(card1.getNumber());
-					System.out.println(someCard);
 					boolean valid = false;
 					while (!valid){
 					int cardIndex = display.displayDeck(topCard, player1.getHand());
@@ -55,6 +51,7 @@ public class Controller {
 							player1.removeCard(cardPlayed.get(0));
 							cardPlayed.clear();
 							logic.gameState();
+							logic.numOfCards(player1, player2, player3, player4);
 						}
 					}
 				}
@@ -69,26 +66,27 @@ public class Controller {
 							player2.removeCard(cardPlayed.get(0));
 							cardPlayed.clear();
 							logic.gameState();
+							logic.numOfCards(player1, player2, player3, player4);
 						}
 					}
 				}
 					else if (logic.getPlayerTurn() == 3) {
-					//int cardIndex = display.displayDeck(topCard, player2.getHand());
-					Card aCard = player3.cardAI(logic, topCard.get(0));
+					Card aCard = player3.cardAI(deck, logic, topCard.get(0));
 					topCard.clear();
 					topCard.add(aCard);		
 					player3.removeCard(aCard);
 					cardPlayed.clear();
 					logic.gameState();
+					logic.numOfCards(player1, player2, player3, player4);
 				}
 					else if (logic.getPlayerTurn() == 4) {
-					//int cardIndex = display.displayDeck(topCard, player2.getHand());
-					Card aCard = player4.cardAI(logic, topCard.get(0));
+					Card aCard = player4.cardAI(deck, logic, topCard.get(0));
 					topCard.clear();
 					topCard.add(aCard);		
 					player4.removeCard(aCard);
 					cardPlayed.clear();
 					logic.gameState();
+					logic.numOfCards(player1, player2, player3, player4);
 				}
 			}
 		}
