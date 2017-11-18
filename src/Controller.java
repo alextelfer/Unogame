@@ -1,20 +1,30 @@
 import java.util.ArrayList;
 public class Controller {
 	private PlayerHuman player1 = new PlayerHuman();
-	private PlayerAI player2 = new PlayerAI();
+	private PlayerHuman player2 = new PlayerHuman();
 	private PlayerAI player3 = new PlayerAI();
 	private PlayerAI player4 = new PlayerAI();
+	
+	public ArrayList<Card> getCardPlayed() {
+		return cardPlayed;
+	}
+
 	private ArrayList <Card> topCard = new ArrayList <Card>();
+
+	private ArrayList <Card> cardPlayed = new ArrayList <Card>();
 	
 	private Logic logic = new Logic();
 	private Deck deck = new Deck();
 	private DisplayCards display = new DisplayCards();
 	
+	private SpecialCard sc;
+	private SpecialFunction sf = new SpecialFunction();
+	
 	public PlayerHuman getPlayer1() {
 		return player1;
 	}
 
-	public PlayerAI getPlayer2() {
+	public PlayerHuman getPlayer2() {
 		return player2;
 	}
 
@@ -35,17 +45,65 @@ public class Controller {
 	}
 	
 	public void play() {
+
 		boolean gameComplete = false;
 		while (!gameComplete){
-			while (logic.isClockwise()) {
 				if (logic.getPlayerTurn() == 1) {
-					while ()
-					logic.isValid(topCard.get(0),player1.getHand().get(display.displayDeck(topCard,player1.getHand())));		
+					boolean valid = false;
+					
+					while (!valid){
+					int cardIndex = display.displayDeck(topCard, player1.getHand());
+					cardPlayed.add(player1.getHand().get(cardIndex-1));					
+						if (valid = logic.isValid(topCard.get(0),cardPlayed.get(0))) {							
+								sf.SpecialFunc(cardPlayed.get(0), deck, logic, this);
+								topCard.clear();
+								topCard.add(cardPlayed.get(0));		
+								player1.getHand().remove(cardIndex-1);
+								cardPlayed.clear();
+								logic.gameState();
+								logic.numOfCards(player1, player2, player3, player4);
+					
+						}	
+					} 
 				}
 				else if (logic.getPlayerTurn() == 2) {
-					
+					boolean valid = false;
+					while (!valid){
+					int cardIndex = display.displayDeck(topCard, player2.getHand());
+					cardPlayed.add(player2.getHand().get(cardIndex-1));					
+						if (valid = logic.isValid(topCard.get(0),cardPlayed.get(0))) {
+							sf.SpecialFunc(cardPlayed.get(0), deck, logic, this);
+							topCard.clear();
+							topCard.add(cardPlayed.get(0));		
+							player2.getHand().remove(cardIndex-1);
+							cardPlayed.clear();
+							logic.gameState();
+							logic.numOfCards(player1, player2, player3, player4);
+						}
+					}
 				}
-			}
+					else if (logic.getPlayerTurn() == 3) {
+					Card aCard = player3.cardAI(deck, logic, topCard.get(0));
+					sf.SpecialFunc(aCard, deck, logic, this);
+					topCard.clear();
+					topCard.add(aCard);		
+					player3.removeCard(aCard);
+					cardPlayed.clear();
+					logic.gameState();
+					logic.numOfCards(player1, player2, player3, player4);
+				}
+					else if (logic.getPlayerTurn() == 4) {
+					Card aCard = player4.cardAI(deck, logic, topCard.get(0));
+					sf.SpecialFunc(aCard, deck, logic, this);
+					topCard.clear();
+					topCard.add(aCard);		
+					player4.removeCard(aCard);
+					cardPlayed.clear();
+					logic.gameState();
+					logic.numOfCards(player1, player2, player3, player4);
+				} else {
+					System.out.println("NNNNNNNNNNNNNN");
+				}
 		}
 	}
 }

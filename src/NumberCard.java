@@ -13,8 +13,7 @@ public class NumberCard extends Card{
 	}
 	
 	public String toString(){
-		
-		return super.toString() + " " + this.number;		
+		return super.toString() + "" + this.number;		
 	}
 	public NumberCard(int col, int num) {
 		super.colval = col;

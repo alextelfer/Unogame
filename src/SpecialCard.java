@@ -5,7 +5,7 @@ public class SpecialCard extends Card{
 	public int specval;
 	
 	public int getSpecval() {
-		return specval;
+		return this.specval;
 	}
 
 	@Override
@@ -13,13 +13,17 @@ public class SpecialCard extends Card{
 		return number;
 	}
 
+	public void setColor(String color) {
+		super.setColor(color);
+	}
+	
 	public void setNumber(String number) {
 		this.number = number;
 	}
 
 	public String toString(){
 		
-		return super.toString() + " " + this.number;
+		return super.toString() + "" + this.number;
 	}
 	public SpecialCard(int col, int spec) {
 		super.colval = col;
@@ -30,6 +34,8 @@ public class SpecialCard extends Card{
 			number = "Reverse";
 		} else if (specval == 2) {
 			number = "Skip";
+		} else if (specval == -1) {
+			number = "";
 		}
 	}
 	
