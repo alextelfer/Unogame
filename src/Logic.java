@@ -47,7 +47,7 @@ public class Logic {
 			setPlayerTurn(3);
 		}
 	}
-	public void numOfCards(PlayerHuman player1, PlayerHuman player2, PlayerAI player3, PlayerAI player4) {
+	public void numOfCards(PlayerHuman player1, PlayerAI player2, PlayerAI player3, PlayerAI player4) {
 		int numPlayer1 = player1.getHand().size();
 		int numPlayer2 = player2.getHand().size();
 		int numPlayer3 = player3.getHand().size();
