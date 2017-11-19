@@ -29,7 +29,7 @@ public class UnoGUI extends JFrame{
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Uno Game");
-		topCardList = game.getTopCardAsList();
+		topCardList = game.getTopCard();
 		Card topCardObject = topCardList.get(0);
 		String topCardAsString = topCardObject.toString();
 		topCardLabel.setText("TopCard: " + topCardAsString + "          ");
