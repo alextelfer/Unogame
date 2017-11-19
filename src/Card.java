@@ -6,17 +6,29 @@ public abstract class Card {
 
 	public abstract String getNumber();
 	
+	/** Getter for color of type String
+	 * @return a reference of color
+	 */
 	public String getColor() {
 		return color;
 	}
 
+	/** Setter for color of type String
+	 * @param color
+	 */
 	public void setColor(String color) {
 		this.color = color;
 	}
 	
+
 	public String toString(){
 		return cardColor(colval);
 	}
+	
+	/** Method for creating the color portion of cards
+	 * @param colval
+	 * @return String of the color
+	 */
 	public String cardColor(int colval) {
 		if (colval == 0) {
 			color = "Red ";
