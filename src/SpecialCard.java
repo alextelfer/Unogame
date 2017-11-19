@@ -4,6 +4,9 @@ public class SpecialCard extends Card{
 	private String number;
 	public int specval;
 	
+	/**Getter for specval
+	 * @return a reference of specval
+	 */
 	public int getSpecval() {
 		return this.specval;
 	}
@@ -13,18 +16,27 @@ public class SpecialCard extends Card{
 		return number;
 	}
 
+	@Override
 	public void setColor(String color) {
 		super.setColor(color);
 	}
 	
+	/**Setter for number of type String
+	 * @param number 
+	 */
 	public void setNumber(String number) {
 		this.number = number;
 	}
+
 
 	public String toString(){
 		return super.toString() + "" + this.number;
 	}
 	
+	/** Constructor that creates special cards with colors
+	 * @param col
+	 * @param spec
+	 */
 	public SpecialCard(int col, int spec) {
 		super.colval = col;
 		this.specval = spec;
@@ -39,6 +51,9 @@ public class SpecialCard extends Card{
 		}
 	}
 	
+	/** Constructor that creates special cards without colors
+	 * @param spec
+	 */
 	public SpecialCard(int spec) {
 		
 		this.specval = spec;
@@ -51,7 +66,5 @@ public class SpecialCard extends Card{
 		 } 
 	
 	}
-	public SpecialCard() {
-		
-	}
+	
 }

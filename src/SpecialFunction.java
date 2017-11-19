@@ -1,37 +1,21 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class SpecialFunction extends Card {
-
-	private String special;
+public class SpecialFunction {
+	
 	public int specval;
 	
-
-
-
 	private ArrayList<Card>nextPlayer = new ArrayList<Card>();
-	
-	private boolean isSpecial;
-	
-	@Override
-	public String getNumber() {
-		return special;
-	}
 
-	public boolean isSpecial(Card cardPlayed) {
-		isSpecial = false;
-		if (cardPlayed instanceof SpecialCard) {
-			isSpecial = true;
-			return isSpecial;
-
-		} else {
-			return isSpecial;
-		}
-	}
-	
+	/** Method that implements all the special card functionality
+	 * @param cardPlayed
+	 * @param deck
+	 * @param logic
+	 * @param controller
+	 */
 	public void SpecialFunc(Card cardPlayed, Deck deck, Logic logic, Controller controller) {
 		boolean turn = logic.isClockwise();
-		// functionality for Draw 2 card **** 
+		/** Draw 2 card functionality */
 		if (cardPlayed.getNumber().equals("Draw 2")) {
 			System.out.println(nextPlayer.size());
 			playerCheck(logic,controller);
@@ -47,7 +31,7 @@ public class SpecialFunction extends Card {
 			}
 				
 			
-		// functionality for Reverse card	
+		/** Reverse card functionality */
 		} else if (cardPlayed.getNumber().equals("Reverse")) {
 			if (turn) {
 				logic.setPlayerTurn(logic.getPlayerTurn()-1);
@@ -56,7 +40,7 @@ public class SpecialFunction extends Card {
 			}
 			logic.setClockwise(!logic.isClockwise());
 			
-		// functionality for Skip card 	
+		/** Skip card functionality */
 		} else if (cardPlayed.getNumber().equals("Skip")) {
 			if (turn) {
 				int playerTurn = logic.getPlayerTurn();
@@ -66,7 +50,7 @@ public class SpecialFunction extends Card {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn - 2);
 			}
-			// functionality for Wild Card
+		/** Wild card functionality */
 		} else if (cardPlayed.getNumber().equals("Wild")) {
 			if (logic.getPlayerTurn() == 1 || logic.getPlayerTurn() == 2) {
 				WildCard(controller);
@@ -79,7 +63,7 @@ public class SpecialFunction extends Card {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn - 1);
 			}
-		// functionality for Wild Draw 4 *** 
+		/** Wild Draw 4 functionality */
 		} else if (cardPlayed.getNumber().equals("Wild Draw 4")) {
 			if (logic.getPlayerTurn() == 1 || logic.getPlayerTurn() == 2) {
 				WildCard(controller);
@@ -104,6 +88,9 @@ public class SpecialFunction extends Card {
 		}
 	}
 	
+	/**Method for Wild cards that takes input to choose Top card color
+	 * @param controller
+	 */
 	public void WildCard(Controller controller) {
 		System.out.println("Choose a color: [1] RED, [2] BLUE, [3] YELLOW, [4] GREEN");
 		Scanner keyboard = new Scanner(System.in);
@@ -123,10 +110,15 @@ public class SpecialFunction extends Card {
 		}
 	}
 	
+	/** Method that checks who the next player is for Draw 2 cards and Wild Draw 4 cards.
+	 * @param logic
+	 * @param controller
+	 * @return ArrayList<Card> of the nextPlayer
+	 */
 	public ArrayList<Card> playerCheck(Logic logic, Controller controller) {
-		//PRIVACY LEAK: EDITING THROUGH GETTER; NEEDED BECAUSE CHANGSE TO NEXTPLAYER NEED TO HAPPEN TO 
-		//THE PLAYER HAND LISTS
-		//REPLACE RETURN WITH SET()
+		/**PRIVACY LEAK: EDITING THROUGH GETTER; NEEDED BECAUSE CHANGSE TO NEXTPLAYER NEED TO HAPPEN TO 
+		 *THE PLAYER HAND LISTS
+		REPLACE RETURN WITH SET() */
 		boolean turn = logic.isClockwise();
 		if (turn) {
 			int thisPlayer = logic.getPlayerTurn();
