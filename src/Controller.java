@@ -5,17 +5,28 @@ public class Controller {
 	private PlayerAI player3 = new PlayerAI();
 	private PlayerAI player4 = new PlayerAI();
 	
+
+
+	private ArrayList <Card> topCard = new ArrayList <Card>();
+	private ArrayList <Card> cardPlayed = new ArrayList <Card>();
+	
+	//topCard Setters/Getters
+	public ArrayList<Card> getTopCard() {
+		return topCard;
+	}
+	public void setTopCard(Card aTopCard) {
+		topCard.clear();
+		topCard.add(aTopCard);
+	}
+	
+	//cardPlayed Setters/Getters
 	public ArrayList<Card> getCardPlayed() {
 		return cardPlayed;
 	}
-	
 	public void setCardPlayed(Card aCardPlayed) {
 		cardPlayed.clear();
 		cardPlayed.add(aCardPlayed);
 	}
-
-	private ArrayList <Card> topCard = new ArrayList <Card>();
-	private ArrayList <Card> cardPlayed = new ArrayList <Card>();
 	
 	private Logic logic = new Logic();
 	private Deck deck = new Deck();
@@ -49,7 +60,6 @@ public class Controller {
 	}
 	
 	public void play() {
-
 		boolean gameComplete = false;
 		while (!gameComplete){
 				if (logic.getPlayerTurn() == 1) {

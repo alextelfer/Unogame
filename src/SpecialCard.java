@@ -22,25 +22,11 @@ public class SpecialCard extends Card{
 	}
 
 	public String toString(){
-		
 		return super.toString() + "" + this.number;
 	}
-	public SpecialCard(int col, int spec) {
-		super.cardColor(col);
-		this.specval = spec;
-		if (specval == 0) {
-			number = "Draw 2";
-		} else if (specval == 1) {
-			number = "Reverse";
-		} else if (specval == 2) {
-			number = "Skip";
-		} else if (specval == -1) {
-			number = "";
-		}
-	}
 	
-	public SpecialCard(String color, int spec) {
-		super.setColor(color);
+	public SpecialCard(int col, int spec) {
+		super.colval = col;
 		this.specval = spec;
 		if (specval == 0) {
 			number = "Draw 2";
@@ -59,7 +45,6 @@ public class SpecialCard extends Card{
 		 if (specval == 3) {
 			super.colval = 5;
 			number = "Wild";
-		
 		 } else if (specval == 4) {
 			super.colval = 5;
 			number = "Wild Draw 4";

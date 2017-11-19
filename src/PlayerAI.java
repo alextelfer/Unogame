@@ -55,12 +55,12 @@ public class PlayerAI {
 		return cardPlayed;
 	}
 	
-	public String handEvaluator(ArrayList<Card> hand) {
+	public int handEvaluator(ArrayList<Card> hand) {
 		int numOfReds = 0;
 		int numOfBlues = 0;
 		int numOfGreens = 0;
 		int numOfYellows = 0;
-		String color = "Red";
+		int color = 0;
 		for (Card aCard : hand) {
 			if (aCard.getColor().equals("Red ")){
 				numOfReds += 1;
@@ -74,20 +74,19 @@ public class PlayerAI {
 			else if (aCard.getColor().equals("Yellow ")){
 				numOfYellows += 1;
 			}
-		System.out.println("Reds:" + numOfReds + "Blues:" + numOfBlues + "Greens:" + numOfGreens + "Yellows:" + numOfYellows);
 		}
 		int mostColor = numOfReds;
 		if (numOfBlues > mostColor) {
 			mostColor = numOfBlues;
-			color = "Blue ";
+			color = 1;
 		}
 		if (numOfGreens > mostColor) {
 			mostColor = numOfGreens;
-			color = "Green ";
+			color = 3;
 		}
 		if (numOfYellows > mostColor) {
 			mostColor = numOfYellows;
-			color = "Yellow ";
+			color = 2;
 		}
 		return color;
 	}

@@ -112,24 +112,16 @@ public class SpecialFunction extends Card {
 		Scanner keyboard = new Scanner(System.in);
 		int next = keyboard.nextInt();
 		if (next == 1) {
-			Card scard = new SpecialCard("Red ", -1);
-			System.out.println("wwwww");
-			System.out.println(scard);
+			SpecialCard scard = new SpecialCard(0, -1);
 			controller.setCardPlayed(scard);
-		} else if (next ==2 ) {		
-			Card scard = new SpecialCard("Blue ", -1);
+		} else if (next == 2 ) {		
+			SpecialCard scard = new SpecialCard(1, -1);
 			controller.setCardPlayed(scard);
-			System.out.println(scard);
-			System.out.println("AAAAAAAAA");
 		} else if (next == 3) {		
-			Card scard = new SpecialCard("Yellow ", -1);
-			System.out.println("wwwww");
-			System.out.println(scard);
+			SpecialCard scard = new SpecialCard(2, -1);
 			controller.setCardPlayed(scard);
-		} else if (next ==4) {		
-			Card scard = new SpecialCard("Green ", -1);
-			System.out.println("wwwww");
-			System.out.println(scard);
+		} else if (next == 4) {		
+			SpecialCard scard = new SpecialCard(3, -1);
 			controller.setCardPlayed(scard);
 		}
 	}
