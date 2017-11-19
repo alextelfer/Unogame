@@ -40,7 +40,7 @@ public class SpecialFunction extends Card {
 			deck.draw(2, nextPlayer);
 			System.out.println(nextPlayer.size());
 			boolean turn = logic.isClockwise();
-			if (turn = true) {
+			if (turn) {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn + 2);
 			} else {
@@ -54,7 +54,7 @@ public class SpecialFunction extends Card {
 		} else if (cardPlayed.getNumber().equals("Reverse")) {
 			
 			boolean turn = logic.isClockwise();
-			if (turn = true) {
+			if (turn) {
 				logic.setClockwise(false);
 				logic.setPlayerTurn(logic.getPlayerTurn()-1);
 			} else {
@@ -66,7 +66,7 @@ public class SpecialFunction extends Card {
 		} else if (cardPlayed.getNumber().equals("Skip")) {
 		
 			boolean turn = logic.isClockwise();
-			if (turn = true) {
+			if (turn) {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn + 2);
 
@@ -80,7 +80,7 @@ public class SpecialFunction extends Card {
 
 			WildCard(controller);
 			boolean turn = logic.isClockwise();
-			if (turn = true) {
+			if (turn) {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn + 1);
 
@@ -96,7 +96,7 @@ public class SpecialFunction extends Card {
 			playerCheck(logic, controller);
 			deck.draw(4, nextPlayer);
 			boolean turn = logic.isClockwise();
-			if (turn = true) {
+			if (turn) {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn + 2);
 
@@ -140,7 +140,7 @@ public class SpecialFunction extends Card {
 		//PRIVACY LEAK: EDITING THROUGH GETTER; NEEDED BECAUSE CHANGSE TO NEXTPLAYER NEED TO HAPPEN TO 
 		//THE PLAYER HAND LISTS
 		boolean turn = logic.isClockwise();
-		if (turn = true) {
+		if (turn) {
 			int thisPlayer = logic.getPlayerTurn();
 			if (thisPlayer == 1) {
 				nextPlayer = controller.getPlayer2().getHand();

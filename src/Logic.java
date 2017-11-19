@@ -37,7 +37,7 @@ public class Logic {
 			if (sc.getSpecval() > 0 && sc.getSpecval() < 5) {
 			
 				
-			} else if (special = false) {
+			} else if (special == false) {
 				valid = true;
 			} 
 		}
