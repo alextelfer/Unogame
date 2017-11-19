@@ -5,7 +5,6 @@ public class SpecialFunction extends Card {
 
 	private String special;
 	public int specval;
-	private ArrayList<Card>WildList = new ArrayList<Card>();
 	
 
 
@@ -13,8 +12,6 @@ public class SpecialFunction extends Card {
 	private ArrayList<Card>nextPlayer = new ArrayList<Card>();
 	
 	private boolean isSpecial;
-	
-
 	
 	@Override
 	public String getNumber() {
@@ -33,13 +30,13 @@ public class SpecialFunction extends Card {
 	}
 	
 	public void SpecialFunc(Card cardPlayed, Deck deck, Logic logic, Controller controller) {
+		boolean turn = logic.isClockwise();
 		// functionality for Draw 2 card **** 
 		if (cardPlayed.getNumber().equals("Draw 2")) {
 			System.out.println(nextPlayer.size());
 			playerCheck(logic,controller);
 			deck.draw(2, nextPlayer);
 			System.out.println(nextPlayer.size());
-			boolean turn = logic.isClockwise();
 			if (turn) {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn + 2);
@@ -52,20 +49,15 @@ public class SpecialFunction extends Card {
 			
 		// functionality for Reverse card	
 		} else if (cardPlayed.getNumber().equals("Reverse")) {
-			
-			boolean turn = logic.isClockwise();
 			if (turn) {
-				logic.setClockwise(false);
 				logic.setPlayerTurn(logic.getPlayerTurn()-1);
 			} else {
-				logic.setClockwise(true);
 				logic.setPlayerTurn(logic.getPlayerTurn() + 1);
 			}
+			logic.setClockwise(!logic.isClockwise());
 			
 		// functionality for Skip card 	
 		} else if (cardPlayed.getNumber().equals("Skip")) {
-		
-			boolean turn = logic.isClockwise();
 			if (turn) {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn + 2);
@@ -73,13 +65,12 @@ public class SpecialFunction extends Card {
 			} else {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn - 2);
-	
 			}
 			// functionality for Wild Card
 		} else if (cardPlayed.getNumber().equals("Wild")) {
-
-			WildCard(controller);
-			boolean turn = logic.isClockwise();
+			if (logic.getPlayerTurn() == 1 || logic.getPlayerTurn() == 2) {
+				WildCard(controller);
+			}
 			if (turn) {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn + 1);
@@ -87,61 +78,55 @@ public class SpecialFunction extends Card {
 			} else {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn - 1);
-	
 			}
 		// functionality for Wild Draw 4 *** 
 		} else if (cardPlayed.getNumber().equals("Wild Draw 4")) {
-	
-			WildCard(controller);
+			if (logic.getPlayerTurn() == 1 || logic.getPlayerTurn() == 2) {
+				WildCard(controller);
+			}
 			playerCheck(logic, controller);
 			deck.draw(4, nextPlayer);
-			boolean turn = logic.isClockwise();
 			if (turn) {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn + 2);
-
 			} else {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn - 2);
-		
-		}
+			}
 		}
 		else {
-			logic.setPlayerTurn(logic.getPlayerTurn()+ 1);
+			if (turn) {
+				logic.setPlayerTurn(logic.getPlayerTurn()+1);
+			}
+			else {
+				logic.setPlayerTurn(logic.getPlayerTurn()-1);
+			}
 		}
 	}
-
+	
 	public void WildCard(Controller controller) {
 		System.out.println("Choose a color: [1] RED, [2] BLUE, [3] YELLOW, [4] GREEN");
 		Scanner keyboard = new Scanner(System.in);
 		int next = keyboard.nextInt();
 		if (next == 1) {
 			SpecialCard scard = new SpecialCard(0, -1);
-			System.out.println("wwwww");
-			controller.getCardPlayed().clear();
-			controller.getCardPlayed().add(scard);
-		} else if (next ==2 ) {		
+			controller.setCardPlayed(scard);
+		} else if (next == 2 ) {		
 			SpecialCard scard = new SpecialCard(1, -1);
-	
-			controller.getCardPlayed().clear();
-			controller.getCardPlayed().add(scard);
-			System.out.println("AAAAAAAAA");
+			controller.setCardPlayed(scard);
 		} else if (next == 3) {		
 			SpecialCard scard = new SpecialCard(2, -1);
-			System.out.println("wwwww");
-			controller.getCardPlayed().clear();
-			controller.getCardPlayed().add(scard);
-		} else if (next ==4) {		
+			controller.setCardPlayed(scard);
+		} else if (next == 4) {		
 			SpecialCard scard = new SpecialCard(3, -1);
-			System.out.println("wwwww");
-			controller.getCardPlayed().clear();
-			controller.getCardPlayed().add(scard);
+			controller.setCardPlayed(scard);
 		}
 	}
 	
 	public ArrayList<Card> playerCheck(Logic logic, Controller controller) {
 		//PRIVACY LEAK: EDITING THROUGH GETTER; NEEDED BECAUSE CHANGSE TO NEXTPLAYER NEED TO HAPPEN TO 
 		//THE PLAYER HAND LISTS
+		//REPLACE RETURN WITH SET()
 		boolean turn = logic.isClockwise();
 		if (turn) {
 			int thisPlayer = logic.getPlayerTurn();
