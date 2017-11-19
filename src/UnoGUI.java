@@ -34,7 +34,12 @@ public class UnoGUI extends JFrame{
 		String topCardAsString = topCardObject.toString();
 		topCardLabel.setText("TopCard: " + topCardAsString + "          ");
 		panel.add(topCardLabel);
-		cardButton(game.getPlayer1().getHand(),listener);
+		if (game.getPlayerTurn() == 1) {
+			cardButton(game.getPlayer1().getHand(),listener);
+		}
+		else if(game.getPlayerTurn() == 2) {
+			cardButton(game.getPlayer2().getHand(),listener);
+		}
 		super.getContentPane().add(panel);
 	}
 

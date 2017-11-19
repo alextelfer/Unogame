@@ -23,6 +23,6 @@ public class UnoActionPerformer implements ActionListener{
 		this.controller.initializeCards();
 		System.out.println(event.getActionCommand());
 		int cardIndex = Integer.parseInt(event.getActionCommand());
-		this.controller.play();
+		this.controller.play(); //is supposed to have the card index passed onto the play method
 	}
 }
