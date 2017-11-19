@@ -106,6 +106,9 @@ public class SpecialFunction extends Card {
 		
 		}
 		}
+		else {
+			logic.setPlayerTurn(logic.getPlayerTurn()+ 1);
+		}
 	}
 
 	public void WildCard(Controller controller) {
