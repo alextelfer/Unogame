@@ -2,10 +2,10 @@
 public class NumberCard extends Card{
 	
 	private String number;
-	private int numval;
+	public int numval;
 	
 	public String getNumber() {
-		return this.number;
+		return number;
 	}
 
 	public void setNumber(String number) {
@@ -13,11 +13,13 @@ public class NumberCard extends Card{
 	}
 	
 	public String toString(){
-		number = String.valueOf(this.numval);
-		return super.toString() + " " + this.number;		
+		return super.toString() + "" + this.number;		
 	}
 	public NumberCard(int col, int num) {
 		super.colval = col;
 		this.numval = num;
+		this.number = String.valueOf(numval);
 	}
+
+	
 }

@@ -17,9 +17,12 @@ public class DisplayCards{
         return numberOfPlayedCard;
     }
     
-    public Card getCardPlayed(int numberOfPlayedCard, ArrayList<Card> playerHand){
+    public ArrayList<Card> getCardPlayed(int numberOfPlayedCard, ArrayList<Card> playerHand){
     	Card cardPlayedAsObject = playerHand.get(numberOfPlayedCard-1);
-    	return cardPlayedAsObject;  
+    	ArrayList<Card> cardPlayedAsList = new ArrayList<Card>();
+    	cardPlayedAsList.add(cardPlayedAsObject);
+
+    	return cardPlayedAsList;   
     }
     
     public void howManyCards(ArrayList<Card> player1, ArrayList<Card> player2,ArrayList<Card> player3,ArrayList<Card> player4){

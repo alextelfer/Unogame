@@ -5,9 +5,10 @@ public class PlayerHuman {
 	private ArrayList <Card> hand = new ArrayList <Card>();
 	
 	public void initialize(Deck deck) {
-		deck.draw(7,this.hand);
+		deck.draw(7 ,this.hand);
 	}
 	
+	//PRIVACY LEAK: FIX LATER, REMOVE() USES GETTER TO EDIT
 	public ArrayList<Card> getHand(){
 		return hand;
 	}

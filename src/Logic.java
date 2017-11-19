@@ -3,7 +3,9 @@ public class Logic {
 	private int playerTurn = 1;
 	private boolean clockwise = true;
 
-
+	private SpecialFunction sf = new SpecialFunction();
+	private SpecialCard sc = new SpecialCard();
+	
 	public int getPlayerTurn() {
 		return playerTurn;
 	}
@@ -22,13 +24,15 @@ public class Logic {
 	
 	public boolean isValid(Card topCard, Card cardPlayed){
 		boolean valid = false;
+		boolean special = false;
+
 		String topCardColor = topCard.getColor();
 		String topCardNumber = topCard.getNumber();
 		String cardPlayedColor = cardPlayed.getColor();
 		String cardPlayedNumber = cardPlayed.getNumber();
 		System.out.println("Colors:  " + cardPlayedColor + "  " + topCardColor);
 		System.out.println("Numbers:  " + cardPlayedNumber + "  " + topCardNumber);
-		if (cardPlayedColor.equals(topCardColor) || cardPlayedNumber.equals(topCardNumber)) {
+		if (cardPlayedColor.equals(topCardColor) || cardPlayedNumber.equals(topCardNumber) || cardPlayedNumber.equals("Wild") || cardPlayedNumber.equals("Wild Draw 4")) {
 			valid = true;
 		}
 		System.out.println(valid);
@@ -36,17 +40,16 @@ public class Logic {
 	}
 	
 	public void gameState(){
-		if (clockwise == true){
-			setPlayerTurn(playerTurn+1);
-			if (playerTurn == 5) {
-				setPlayerTurn(1);
-			} 
+		if (playerTurn == 5) {
+			setPlayerTurn(1);
+		} 
+		else if (playerTurn == 6) {
+			setPlayerTurn(2);
 		}
-		else {
-			setPlayerTurn(playerTurn--);
-			if (playerTurn == 0) {
-				setPlayerTurn(4);
-			}
+		if (playerTurn ==0 ) {
+			setPlayerTurn(4);
+		} else if (playerTurn == -1) {
+			setPlayerTurn(3);
 		}
 	}
 	public void numOfCards(PlayerHuman player1, PlayerHuman player2, PlayerAI player3, PlayerAI player4) {
