@@ -8,17 +8,28 @@ public class PlayerAI {
 		return hand;
 	}
 	
+	/**
+	 * Used to draw cards to the player's hand at the start of the game
+	 * @param deck of type Deck
+	 */
 	public void initialize(Deck deck) {
 		deck.draw(7,this.hand);
 	}
 	
+	/**
+	 * Used to remove a Card that was played from the player's hand
+	 * @param playedCard of type Card
+	 */
 	public void removeCard(Card playedCard) {
 		this.hand.remove(hand.indexOf(playedCard));
 	}
 	
-	/*
+	/**
+	 * AI method: determines what card the AI will play based on the conditions of it's hand.
 	 * Current AI priority: From left to right: SpecialCards > NumberCards
 	 * AI Functionality: WildCard: Changes the color to the most common color in it's own hand
+	 * @param takes an instance of the Deck, Logic, and a Card topCard
+	 * @return returns the Card that the AI plays
 	 */
 	public Card cardAI(Deck deck,Logic logic, Card topCard) {
 		ArrayList <Card> validChoices = new ArrayList <Card>();
@@ -27,8 +38,6 @@ public class PlayerAI {
 		//Adds valid cards in hand to validChoices list
 		while (validChoices.size() == 0) {
 			for (int index1 = 0;index1<hand.size();index1++) {
-				//DO NOT REMOVE THIS PRINT STATEMENT
-				System.out.println(hand);
 				if (logic.isValid(topCard,hand.get(index1))) {
 					validChoices.add(hand.get(index1));
 				}
@@ -50,12 +59,18 @@ public class PlayerAI {
 		}
 		removeCard(cardPlayed);
 		if (cardPlayed.getNumber().equals("Wild") || cardPlayed.getNumber().equals("Wild Draw 4")){
-			cardPlayed = new SpecialCard(handEvaluator(hand),-1);
+			cardPlayed = new SpecialCard(handEvaluator(),-1);
 		}
 		return cardPlayed;
 	}
 	
-	public int handEvaluator(ArrayList<Card> hand) {
+	
+	/**
+	 * Method that iterates through the player's hand and determines what color is the most common.
+	 * Used to determine what color to set WildCards to when the AI decides to play one
+	 * @return String color
+	 */
+	public int handEvaluator() {
 		int numOfReds = 0;
 		int numOfBlues = 0;
 		int numOfGreens = 0;
