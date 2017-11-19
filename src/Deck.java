@@ -4,14 +4,19 @@ import java.util.Random;
 
 public class Deck {
 	private ArrayList <Card> unoDeck = new ArrayList <Card> ();
+	private NumberCard numcard;
 	
 	public ArrayList<Card> getUnoDeck() {
 		return unoDeck;
 	}
 	public Deck(){
-		// number cards
+		// number cards (zeros)
 		for (int colval = 0; colval <= 3; colval++ ) {
-			for (int numval = 0; numval <= 9; numval++) {
+			unoDeck.add(new NumberCard(colval, 0));
+		}
+		// number cards (1-9)
+		for (int colval = 0; colval <= 3; colval++ ) {
+			for (int numval = 1; numval <= 9; numval++) {
 				for (int i = 0; i < 2; i++) {
 					unoDeck.add(new NumberCard(colval, numval));
 				}
@@ -37,6 +42,12 @@ public class Deck {
 		Random rand = new Random();
 		for (int i=0; i <numOfCards; i++)
 			player.add(unoDeck.remove(rand.nextInt(unoDeck.size())) );
+	}
+	
+	public void topDraw(ArrayList<Card> topcard) {
+		Random rand = new Random();
+		for (int i=0; i <1; i++)
+			topcard.add(unoDeck.remove(rand.nextInt(80) ));
 	}
 	
 	public int cardsLeft() {
