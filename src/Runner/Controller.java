@@ -200,6 +200,9 @@ public class Controller {
 				}
 			}
 		}
-		System.out.println("Winner of the game is: player " + winner);
+		if (winner > 0){
+			System.out.println("Winner of the game is: player " + winner);
+			System.exit(0);
+		}
 	}
 }
