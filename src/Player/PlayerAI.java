@@ -21,6 +21,10 @@ public class PlayerAI {
 		deck.draw(7,this.hand);
 	}
 	
+	public void setHand(ArrayList<Card> aHand) {
+		this.hand = aHand;
+	}
+	
 	/**
 	 * Used to remove a Card that was played from the player's hand
 	 * @param playedCard of type Card

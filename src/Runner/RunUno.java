@@ -12,7 +12,7 @@ public class RunUno {
 				controller.initializeCards();
 				UnoActionPerformer actions = new UnoActionPerformer(controller);
 				UnoGUI gui = new UnoGUI();
-				gui.display(controller,actions);
+				gui.display(controller, actions);
 			}
 		});
 	}

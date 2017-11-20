@@ -69,8 +69,8 @@ public class SpecialFunction {
 				logic.setPlayerTurn(playerTurn - 1);
 			}
 		/** Wild Draw 4 functionality */
-		} else if (cardPlayed.getNumber().equals("Wild Draw 4")) {
-			if (logic.getPlayerTurn() == 1 || logic.getPlayerTurn() == 2) {
+		} else if (cardPlayed.getNumber().equals("Wild Draw 4") || cardPlayed.getNumber().equals("")) { //cardPlayed.getNumber().equals("") is required for the AI
+			if (logic.getPlayerTurn() == 1) {
 				WildCard(controller);
 			}
 			playerCheck(logic, controller);
