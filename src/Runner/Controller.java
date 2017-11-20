@@ -144,6 +144,7 @@ public class Controller {
 						deck.draw(1, getPlayer1().getHand());
 					}
 				}
+				logic.lastCard(player1.getHand());
 				if (player1.getHand().size() == 0) {
 					winner = 1;
 					gameComplete = true;
