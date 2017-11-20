@@ -62,7 +62,7 @@ public class Deck {
 	public void topDraw(ArrayList<Card> topcard) {
 		Random rand = new Random();
 		for (int i=0; i <1; i++)
-			topcard.add(unoDeck.remove(rand.nextInt(80) ));
+			topcard.add(unoDeck.remove(rand.nextInt(76) ));
 	}
 	
 	/** Method that shows how much cards are left

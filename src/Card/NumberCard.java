@@ -25,7 +25,6 @@ public class NumberCard extends Card{
 	 * @param num
 	 */
 	public NumberCard(int col, int num) {
-		super.colval = col;
 		super.cardColor(col);
 		this.numval = num;
 		this.number = String.valueOf(numval);
