@@ -1,28 +1,50 @@
 package Logic;
 import Card.Card;
+import Card.Deck;
 import Player.PlayerAI;
 import Player.PlayerHuman;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 
 public class Logic {
 	private int playerTurn = 1;
 	private boolean clockwise = true;
 	
+	/** Getter for playerTurn of type integer
+	 * @return playerTurn of type integer
+	 */
 	public int getPlayerTurn() {
-		return playerTurn;
+		int turn = playerTurn;
+		return turn;
 	}
 
+	/** Setter for playerTurn of type integer
+	 * @param playerTurn
+	 */
 	public void setPlayerTurn(int playerTurn) {
 		this.playerTurn = playerTurn;
 	}
 
+	/** Method that returns the boolean for clockwise
+	 * @return clockwise of type boolean
+	 */
 	public boolean isClockwise() {
 		return clockwise;
 	}
 
+	/** Setter for clockwise of type boolean
+	 * @param clockwise
+	 */
 	public void setClockwise(boolean clockwise) {
 		this.clockwise = clockwise;
 	}
 	
+	/** Method that checks the if the card played is valid or not
+	 * @param topCard
+	 * @param cardPlayed
+	 * @return valid of type boolean
+	 */
 	public boolean isValid(Card topCard, Card cardPlayed){
 		boolean valid = false;
 		String topCardColor = topCard.getColor();
@@ -38,6 +60,9 @@ public class Logic {
 		return valid;
 	}
 	
+	/** Method that sets the playerTurn according to the order of play
+	 * 
+	 */
 	public void gameState(){
 		if (playerTurn == 5) {
 			setPlayerTurn(1);
@@ -51,6 +76,13 @@ public class Logic {
 			setPlayerTurn(3);
 		}
 	}
+	
+	/** Method that takes in all the player hand sizes and prints out how many cards they have
+	 * @param player1
+	 * @param player2
+	 * @param player3
+	 * @param player4
+	 */
 	public void numOfCards(PlayerHuman player1, PlayerAI player2, PlayerAI player3, PlayerAI player4) {
 		int numPlayer1 = player1.getHand().size();
 		int numPlayer2 = player2.getHand().size();
@@ -61,4 +93,30 @@ public class Logic {
 		System.out.println("Player 3 has " + numPlayer3 + " Cards");
 		System.out.println("Player 4 has " + numPlayer4 + " Cards");
 	}
+	
+	/** Method that makes the player type "Uno" or "uno" to win
+	 * @param playerhand of type ArrayList<Card>
+	 */
+	public void lastCard(ArrayList<Card> playerhand) {
+		Scanner keyboard = new Scanner(System.in);
+		String gameComplete = "  ";
+		if (playerhand.size() == 1) {
+				gameComplete = keyboard.nextLine();
+			if (gameComplete.equals("Uno") || gameComplete.equals("uno")) {
+			}
+			else {
+				Deck deck = new Deck();
+				deck.draw(1,playerhand);
+			}
+		}
+	}
 }
+	
+	
+	
+	
+	
+	
+	
+	
+	

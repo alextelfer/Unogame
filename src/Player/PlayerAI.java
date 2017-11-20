@@ -8,21 +8,48 @@ import Logic.Logic;
 
 public class PlayerAI {
 	private ArrayList <Card> hand = new ArrayList <Card>();
+
 	
-	public ArrayList<Card> getHand(){
-		return hand;
+	/**
+	 * Default constructor for the PlayerAI Class
+	 */
+	public PlayerAI() {
+
 	}
 	
+	/**
+	 * setter for hand, used in PlayerAITest to create an artificial hand
+	 * @param aHand
+	 */
+	public void setHand(ArrayList<Card> aHand) {
+		this.hand = aHand;
+	}
+	
+	/**
+	 * Copy Constructor for PlayerAI 
+	 * @param toCopy of type PlayerAI to stop privacy leak
+	 */
+	public PlayerAI(PlayerAI toCopy) {
+		this.hand = toCopy.hand;
+	}	
+	
+	/**
+	 * Getter for the arraylist that contains the cards in a player hand
+	 * @return a copy of the playerHand
+	 */
+	public ArrayList<Card> getHand(){
+		ArrayList <Card> playerHand = new ArrayList<Card>();
+		for(Card c : hand) {
+			playerHand.add(c);
+		}
+		return playerHand;
+	}
 	/**
 	 * Used to draw cards to the player's hand at the start of the game
 	 * @param deck of type Deck
 	 */
 	public void initialize(Deck deck) {
 		deck.draw(7,this.hand);
-	}
-	
-	public void setHand(ArrayList<Card> aHand) {
-		this.hand = aHand;
 	}
 	
 	/**
@@ -67,8 +94,11 @@ public class PlayerAI {
 			cardPlayed = validChoices.get(0);
 		}
 		removeCard(cardPlayed);
-		if (cardPlayed.getNumber().equals("Wild") || cardPlayed.getNumber().equals("Wild Draw 4")){
+		if (cardPlayed.getNumber().equals("Wild")){
 			cardPlayed = new SpecialCard(handEvaluator(),-1);
+		}
+		if (cardPlayed.getNumber().equals("Wild Draw 4")){
+			cardPlayed = new SpecialCard(handEvaluator(), -2);
 		}
 		return cardPlayed;
 	}

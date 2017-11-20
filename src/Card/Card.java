@@ -6,6 +6,7 @@ public abstract class Card {
 	public int colval;
 
 	public abstract String getNumber();
+	public abstract int getSpecval();
 	
 	/** Getter for color of type String
 	 * @return a reference of color
@@ -21,9 +22,8 @@ public abstract class Card {
 		this.color = color;
 	}
 	
-
 	public String toString(){
-		return cardColor(colval);
+		return color;
 	}
 	
 	/** Method for creating the color portion of cards
@@ -44,4 +44,5 @@ public abstract class Card {
 		}
 		return color;
 	}
+
 }

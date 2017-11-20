@@ -19,7 +19,6 @@ public class Controller {
 	private PlayerAI player3 = new PlayerAI();
 	private PlayerAI player4 = new PlayerAI();
 	private int winner;
-	private Card aCard;
 	/**
 	 * Instantiation of topCard list and the CardPlayed list that is used
 	 * as a medium for checking valid play
@@ -36,15 +35,17 @@ public class Controller {
 	private DisplayCards display = new DisplayCards();
 	private SpecialFunction sf = new SpecialFunction();
 
-
+	
 	/**A getter method for the arrayList that contains the topcard
 	 * @return the arrayList <Card> that contains the topCard object for the game
 	 */
-	public ArrayList<Card> getTopCard() {
-		return topCard;
+	public ArrayList<Card> getTopCard(){
+		ArrayList <Card> topcard = new ArrayList<Card>();
+		for(Card c : topCard) {
+			topcard.add(c);
+		}
+		return topcard;
 	}
-
-
 	/**Setter for topCard list to take care of privacy leaks
 	 * @param aTopCard object of type Card to set the new topcard in the game
 	 */
@@ -53,14 +54,15 @@ public class Controller {
 		topCard.add(aTopCard);
 	}
 
-
+	
 	/**Getter of type arrayList<Card> to get the card played by the user
 	 * @return the arrayList <Card> of the cardPLayed by the user 
 	 */
 	public ArrayList<Card> getCardPlayed() {
-		return cardPlayed;
+		ArrayList <Card> playedCard = cardPlayed;
+		return playedCard;
 	}
-
+	
 	/**Setter for the cardPLayed of type arrayList <Card> 
 	 * @param aCardPlayed the arrayList <Card> played by the user 
 	 */
@@ -80,28 +82,28 @@ public class Controller {
 	 * @return player1 of type PlayerHuman
 	 */
 	public PlayerHuman getPlayer1() {
-		return player1;
+		return new PlayerHuman(player1);
 	}
 
 	/**Getter for the class of player2 (Computer) to have access to their hand and the methods in the class
 	 * @return player2 of type PlayerAI
 	 */
 	public PlayerAI getPlayer2() {
-		return player2;
+		return new PlayerAI(player2);
 	}
 
 	/**Getter for the class of player3 (Computer) to have access to their hand and the methods in the class
 	 * @return player3 of type PlayerAI
 	 */
 	public PlayerAI getPlayer3() {
-		return player3;
+		return new PlayerAI(player3);
 	}
 
 	/**Getter for the class of player4 (Computer) to have access to their hand and the methods in the class
 	 * @return player4 of type PlayerAI
 	 */
 	public PlayerAI getPlayer4() {
-		return player4;
+		return new PlayerAI(player4);
 	}
 
 	/**
@@ -147,7 +149,7 @@ public class Controller {
 		}
 		if (logic.getPlayerTurn() == 2) {
 			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 2's Turn" + "\n");
-			aCard = player2.cardAI(deck, logic, topCard.get(0));
+			Card aCard = player2.cardAI(deck, logic, topCard.get(0));
 			sf.SpecialFunc(aCard, deck, logic, this);
 			topCard.clear();
 			topCard.add(aCard);		
@@ -160,7 +162,7 @@ public class Controller {
 		}
 		if (logic.getPlayerTurn() == 3) {
 			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 3's Turn" + "\n");
-			aCard = player3.cardAI(deck, logic, topCard.get(0));
+			Card aCard = player3.cardAI(deck, logic, topCard.get(0));
 			sf.SpecialFunc(aCard, deck, logic, this);
 			topCard.clear();
 			topCard.add(aCard);		
@@ -173,7 +175,7 @@ public class Controller {
 		}
 		if (logic.getPlayerTurn() == 4) {
 			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 4's Turn" + "\n");
-			aCard = player4.cardAI(deck, logic, topCard.get(0));
+			Card aCard = player4.cardAI(deck, logic, topCard.get(0));
 			sf.SpecialFunc(aCard, deck, logic, this);
 			topCard.clear();
 			topCard.add(aCard);		
