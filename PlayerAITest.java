@@ -1,6 +1,13 @@
 import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import org.junit.Test;
+
+import Card.Deck;
+import Logic.*;
+import Card.*;
+import Player.*;
+import Runner.*;
 
 public class PlayerAITest {
 
