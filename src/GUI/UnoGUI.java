@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 
@@ -19,6 +20,7 @@ public class UnoGUI extends JFrame{
 	private JFrame frame = new JFrame();	
 	private JPanel panel = new JPanel();
 	private JButton card = new JButton();
+	private JTextField field;
 	private JLabel topCardLabel = new JLabel("");
 	private Card aCard; 
 	private ArrayList<Card> topCardList = new ArrayList<Card>();
@@ -34,17 +36,9 @@ public class UnoGUI extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Uno Game");
 		topCardList = game.getTopCard();
-		
-		topCardLabel.setText("TopCard: " + topCardLabel(topCardList) + "          ");
-		panel.add(topCardLabel);
-		
+		setTopCardLabel(game);
 		cardButton(game.getPlayer1().getHand(),listener);
 		super.getContentPane().add(panel);
-	}
-	
-	public void setTopCardLabel() {
-		topCardLabel.setText("TopCard: " + topCardLabel(topCardList) + "          ");
-		panel.add(topCardLabel);
 	}
 
 	/**
@@ -67,9 +61,16 @@ public class UnoGUI extends JFrame{
 		panel.add(drawCardButton);
 	}
 	
-	public String topCardLabel(ArrayList<Card> topCardList){
-		Card topCardObject = topCardList.get(0);
+	public void setTopCardLabel(Controller game) {
+		Card topCardObject = game.getTopCard().get(0);
 		String topCardAsString = topCardObject.toString();
-		return topCardAsString;
+		topCardLabel.setText("TopCard: ");
+		field = new JTextField(topCardAsString);
+		panel.add(topCardLabel);
+		panel.add(field);
+	}
+	
+	public void clear(){
+		topCardLabel.setText(field.getText());
 	}
 }

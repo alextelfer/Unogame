@@ -25,8 +25,8 @@ public class UnoActionPerformer implements ActionListener{
 		System.out.println(event.getActionCommand());
 		int cardIndex = Integer.parseInt(event.getActionCommand());
 		this.controller.play(cardIndex); //is supposed to have the card index passed onto the play method
-		gui.setTopCardLabel();
-		gui.repaint();
-		gui.revalidate();
+		//gui.clear();
+		//gui.setTopCardLabel(this.controller);
+		gui.display(controller, this);
 	}
 }
