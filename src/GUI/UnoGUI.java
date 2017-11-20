@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
@@ -15,8 +16,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class UnoGUI extends JFrame{
-	private static final int WINDOW_WIDTH = 1000;
-	private static final int WINDOW_HEIGHT = 1000;
+	private static final int WINDOW_WIDTH = 2000;
+	private static final int WINDOW_HEIGHT = 199;
 
 	private JButton card = new JButton();
 	private Card aCard; 
@@ -28,27 +29,33 @@ public class UnoGUI extends JFrame{
 	 */	
 	
 	public void display(Controller game,ActionListener listener){
-		JPanel panel1 = new JPanel();
-		JPanel panel2 = new JPanel();	
 		JFrame frame = new JFrame();
-		frame.setLayout(new FlowLayout());
+		frame.getContentPane().removeAll();
+		frame.getContentPane().revalidate();
+		frame.getContentPane().repaint();
 		frame.setVisible(true);
 		frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		JLabel player1Cards = new JLabel("Player 1 has: " +  game.getPlayer1().getHand().size() + " Cards" );
+		frame.getContentPane().removeAll();
+		frame.getContentPane().revalidate();
+		frame.getContentPane().repaint();
 		JLabel player2Cards = new JLabel("Player 2 has: " + game.getPlayer2().getHand().size() + " Cards");
 		JLabel player3Cards = new JLabel("Player 3 has: " + game.getPlayer3().getHand().size() + " Cards");
 		JLabel player4Cards = new JLabel("Player 4 has: " + game.getPlayer4().getHand().size() + " Cards");
-		panel1.add(player1Cards);
-		panel1.add(player2Cards);
-		panel1.add(player3Cards);
-		panel1.add(player4Cards);
-		frame.getContentPane().add(panel1);
+		JPanel panel1 = new JPanel();
+		JPanel panel2 = new JPanel();	
+		JPanel panel3 = new JPanel();	
+		JPanel panel4 = new JPanel();	
+		panel2.add(player2Cards);
+		panel3.add(player3Cards);
+		panel4.add(player4Cards);
+		frame.getContentPane().add(panel2, BorderLayout.EAST);
+		frame.getContentPane().add(panel3, BorderLayout.NORTH);
+		frame.getContentPane().add(panel4, BorderLayout.WEST);
 		String topCardAsString = game.getTopCard().get(0).toString();
 		JLabel topCardLabel = new JLabel(topCardAsString);
-		panel2.add(topCardLabel);
-		frame.getContentPane().add(panel2);
-		frame.getContentPane().add(panel1);
+		panel1.add(topCardLabel);
+		frame.getContentPane().add(panel1, BorderLayout.CENTER);
 		cardButton(game.getPlayer1().getHand(),listener, frame);
 	}
 
@@ -57,7 +64,7 @@ public class UnoGUI extends JFrame{
 	 *@param takes an Arraylist of Unocards corresponding to players hand, ActionListener
 	 */
 	public void cardButton(ArrayList <Card> playerCards, ActionListener listener, JFrame frame){
-		JPanel panel3 = new JPanel();
+		JPanel panel5 = new JPanel();
 		for (int i = 0; i < playerCards.size(); i++){
 			aCard = playerCards.get(i);
 			String aFace = aCard.toString();
@@ -65,15 +72,21 @@ public class UnoGUI extends JFrame{
 			String stringI = Integer.toString(i+1);
 			card.setActionCommand(stringI);
 			card.addActionListener(listener);
-			panel3.add(card);
-			frame.getContentPane().add(panel3);
+			panel5.add(card);
 		}
-		JPanel panel4 = new JPanel();
 		JButton drawCardButton = new JButton("Draw Card");
 		drawCardButton.setActionCommand(Integer.toString(0));
 		drawCardButton.addActionListener(listener);
-		panel4.add(drawCardButton);
-		frame.getContentPane().add(panel4);
+		panel5.add(drawCardButton);
+		frame.getContentPane().add(panel5,BorderLayout.SOUTH);
 	}
+	
+	/**
+	public void clear() {
+		frame.getContentPane().removeAll();
+		frame.getContentPane().revalidate();
+		frame.getContentPane().repaint();
+	}
+	*/
 	
 }
