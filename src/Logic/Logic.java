@@ -15,7 +15,8 @@ public class Logic {
 	 * @return playerTurn of type integer
 	 */
 	public int getPlayerTurn() {
-		return playerTurn;
+		int turn = playerTurn;
+		return turn;
 	}
 
 	/** Setter for playerTurn of type integer
@@ -99,10 +100,8 @@ public class Logic {
 	public void lastCard(ArrayList<Card> playerhand) {
 		Scanner keyboard = new Scanner(System.in);
 		String gameComplete = "  ";
-		//From Nick Fortescue on stackoverflow
 		if (playerhand.size() == 1) {
 				gameComplete = keyboard.nextLine();
-			}
 			if (gameComplete.equals("Uno") || gameComplete.equals("uno")) {
 			}
 			else {
@@ -110,6 +109,7 @@ public class Logic {
 				deck.draw(1,playerhand);
 			}
 		}
+	}
 }
 	
 	

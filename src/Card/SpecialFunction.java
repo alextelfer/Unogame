@@ -32,10 +32,8 @@ public class SpecialFunction {
 			} else {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn - 2);
-	
 			}
 				
-			
 		/** Reverse card functionality */
 		} else if (cardPlayed.getNumber().equals("Reverse")) {
 			if (turn) {
@@ -56,8 +54,8 @@ public class SpecialFunction {
 				logic.setPlayerTurn(playerTurn - 2);
 			}
 		/** Wild card functionality */
-		} else if (cardPlayed.getNumber().equals("Wild")) {
-			if (logic.getPlayerTurn() == 1 || logic.getPlayerTurn() == 2) {
+		} else if (cardPlayed.getNumber().equals("Wild") || cardPlayed.getSpecval() == -1) { //-1 specval: variable to determine wildcards for AI
+			if (logic.getPlayerTurn() == 1) {
 				WildCard(controller);
 			}
 			if (turn) {
@@ -69,8 +67,8 @@ public class SpecialFunction {
 				logic.setPlayerTurn(playerTurn - 1);
 			}
 		/** Wild Draw 4 functionality */
-		} else if (cardPlayed.getNumber().equals("Wild Draw 4")) {
-			if (logic.getPlayerTurn() == 1 || logic.getPlayerTurn() == 2) {
+		} else if (cardPlayed.getNumber().equals("Wild Draw 4") || cardPlayed.getSpecval() == -2) {//-2 specval: variable to determine wild draw 4 for AI
+			if (logic.getPlayerTurn() == 1) {
 				WildCard(controller);
 			}
 			playerCheck(logic, controller);

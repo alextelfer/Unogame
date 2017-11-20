@@ -39,11 +39,13 @@ public class Controller {
 	/**A getter method for the arrayList that contains the topcard
 	 * @return the arrayList <Card> that contains the topCard object for the game
 	 */
-	public ArrayList<Card> getTopCard() {
-		return topCard;
+	public ArrayList<Card> getTopCard(){
+		ArrayList <Card> topcard = new ArrayList<Card>();
+		for(Card c : topCard) {
+			topcard.add(c);
+		}
+		return topcard;
 	}
-	
-	
 	/**Setter for topCard list to take care of privacy leaks
 	 * @param aTopCard object of type Card to set the new topcard in the game
 	 */
@@ -57,7 +59,8 @@ public class Controller {
 	 * @return the arrayList <Card> of the cardPLayed by the user 
 	 */
 	public ArrayList<Card> getCardPlayed() {
-		return cardPlayed;
+		ArrayList <Card> playedCard = cardPlayed;
+		return playedCard;
 	}
 	
 	/**Setter for the cardPLayed of type arrayList <Card> 
@@ -79,28 +82,28 @@ public class Controller {
 	 * @return player1 of type PlayerHuman
 	 */
 	public PlayerHuman getPlayer1() {
-		return player1;
+		return new PlayerHuman(player1);
 	}
 
 	/**Getter for the class of player2 (Computer) to have access to their hand and the methods in the class
 	 * @return player2 of type PlayerAI
 	 */
 	public PlayerAI getPlayer2() {
-		return player2;
+		return new PlayerAI(player2);
 	}
 
 	/**Getter for the class of player3 (Computer) to have access to their hand and the methods in the class
 	 * @return player3 of type PlayerAI
 	 */
 	public PlayerAI getPlayer3() {
-		return player3;
+		return new PlayerAI(player3);
 	}
 
 	/**Getter for the class of player4 (Computer) to have access to their hand and the methods in the class
 	 * @return player4 of type PlayerAI
 	 */
 	public PlayerAI getPlayer4() {
-		return player4;
+		return new PlayerAI(player4);
 	}
 
 	/**
@@ -114,7 +117,6 @@ public class Controller {
 		player3.initialize(deck);
 		player4.initialize(deck);
 	}
-
 	/**
 	 * the play method is what controls the state of the game, keeps track of which player's turn it is
 	 * and the player that wins the game

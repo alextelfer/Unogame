@@ -5,10 +5,22 @@ import Card.Card;
 import Card.Deck;
 
 
-
 public class PlayerHuman {
 	private ArrayList <Card> hand = new ArrayList <Card>();
 	
+	/**
+	 * Default constructor for PlayerHuman when instantiating in other class
+	 */
+	public PlayerHuman() {
+	}
+	
+	/**
+	 * Copy Constructor for PlayerHuman to stop a privacy leak
+	 * @param toCopy of type PlayerHuman for stopping privacy leak
+	 */
+	public PlayerHuman(PlayerHuman toCopy) {
+		this.hand=toCopy.hand;
+	}
 	/**
 	 * Used to draw cards to the player's hand at the start of the game
 	 * @param deck of type Deck
