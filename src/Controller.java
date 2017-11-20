@@ -1,17 +1,5 @@
 import java.util.ArrayList;
 
-/**
- * @author Trilok Patel
- *
- */
-/**
- * @author Trilok Patel
- *
- */
-/**
- * @author Trilok Patel
- *
- */
 public class Controller {
 	/**
 	 * Instantiation of all the 4 players in the game; 1 Human Player, 3 AI players
@@ -201,6 +189,9 @@ public class Controller {
 				}
 			}
 		}
-		System.out.println("Winner of the game is: player " + winner);
+		if (winner > 0){
+			System.out.println("Winner of the game is: player " + winner);
+			System.exit(0);
+		}
 	}
 }
