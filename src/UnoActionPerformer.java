@@ -1,11 +1,13 @@
+package GUI;
+
+import Runner.Controller;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import javax.swing.*;
 
 public class UnoActionPerformer implements ActionListener{
-
-	private Controller controller = new Controller();
-
+	private Controller controller;
+	private UnoGUI gui = new UnoGUI();
 	/**
 	*Constructor, sets the instance variable "controller" to the same instance that requires button input
 	*@param takes an instance of Uno
@@ -20,9 +22,11 @@ public class UnoActionPerformer implements ActionListener{
 	@param an ActionEvent
 	*/
 	public void actionPerformed(ActionEvent event){
-		this.controller.initializeCards();
 		System.out.println(event.getActionCommand());
 		int cardIndex = Integer.parseInt(event.getActionCommand());
-		this.controller.play(); //is supposed to have the card index passed onto the play method
+		this.controller.play(cardIndex); //is supposed to have the card index passed onto the play method
+		//gui.clear();
+		//gui.setTopCardLabel(this.controller);
+		gui.display(controller, this);
 	}
 }
