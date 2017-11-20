@@ -49,6 +49,8 @@ public class SpecialCard extends Card{
 			number = "Skip";
 		} else if (specval == -1) {
 			number = "";
+		} else if (specval == -2) {
+			number = "";
 		}
 	}
 	
