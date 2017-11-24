@@ -7,13 +7,15 @@ import javax.swing.*;
 
 public class UnoActionPerformer implements ActionListener{
 	private Controller controller;
-	private UnoGUI gui = new UnoGUI();
+	private UnoGUI gui;
 	/**
 	*Constructor, sets the instance variable "controller" to the same instance that requires button input
 	*@param takes an instance of Uno
 	*/
 	public UnoActionPerformer(Controller controller){
 		this.controller = controller;
+		gui = new UnoGUI();
+		gui.display(controller, this);
 	}
 
 	/**

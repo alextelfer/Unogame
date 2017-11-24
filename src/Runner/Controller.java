@@ -3,8 +3,9 @@ import java.util.ArrayList;
 
 import Card.Card;
 import Card.Deck;
-import Card.DisplayCards;
 import Card.SpecialFunction;
+import GUI.UnoActionPerformer;
+import GUI.UnoGUI;
 import Logic.Logic;
 import Player.PlayerAI;
 import Player.PlayerHuman;
@@ -32,7 +33,6 @@ public class Controller {
 	 */
 	private Logic logic = new Logic();
 	private Deck deck = new Deck();
-	private DisplayCards display = new DisplayCards();
 	private SpecialFunction sf = new SpecialFunction();
 
 	
@@ -116,6 +116,8 @@ public class Controller {
 		player2.initialize(deck);
 		player3.initialize(deck);
 		player4.initialize(deck);
+		UnoActionPerformer actions = new UnoActionPerformer(this);
+
 	}
 
 	/**
@@ -148,7 +150,9 @@ public class Controller {
 			}
 		}
 		if (logic.getPlayerTurn() == 2) {
+			//Make a pause 
 			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 2's Turn" + "\n");
+			//Make a pause
 			Card aCard = player2.cardAI(deck, logic, topCard.get(0));
 			sf.SpecialFunc(aCard, deck, logic, this);
 			topCard.clear();

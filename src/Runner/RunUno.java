@@ -10,9 +10,7 @@ public class RunUno {
 			public void run() {
 				Controller controller = new Controller();
 				controller.initializeCards();
-				UnoActionPerformer actions = new UnoActionPerformer(controller);
-				UnoGUI gui = new UnoGUI();
-				gui.display(controller, actions);
+
 			}
 		});
 	}
