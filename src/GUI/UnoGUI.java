@@ -30,7 +30,7 @@ public class UnoGUI extends JFrame {
 	private JPanel playerPanel = new JPanel();
 	private JPanel wildPanel = new JPanel();
 
-	Color blueCard = new Color(66, 104, 208);
+	private Color blueCard = new Color(66, 104, 208);
 
 	/**
 	 * Creates display window and displays the topCard. Calls cardButton to display
@@ -42,7 +42,7 @@ public class UnoGUI extends JFrame {
 	 */
 
 	public void display(Controller game, ActionListener listener) {
-
+		// gameWindow.getContentPane().setBackground(Color.white);
 		gameWindow.getContentPane().removeAll();
 		gameWindow.getContentPane().revalidate();
 		gameWindow.getContentPane().repaint();
@@ -60,10 +60,12 @@ public class UnoGUI extends JFrame {
 
 		String topCardAsString = game.getTopCard().get(0).toString();
 		JLabel topCardLabel = new JLabel("Top Card: " + topCardAsString, JLabel.CENTER);
+		setLabelColor(game.getTopCard().get(0), topCardLabel);
 
 		gameWindow.getContentPane().add(topCardLabel, BorderLayout.CENTER);
 		cardButton(game.getPlayer1().getHand(), listener);
 		wildCardButtons(listener);
+
 		gameWindow.setVisible(true);
 
 	}
@@ -127,4 +129,16 @@ public class UnoGUI extends JFrame {
 		wildCardWindow.getContentPane().add(wildPanel, BorderLayout.CENTER);
 	}
 
+	public void setLabelColor(Card aCard, JLabel topCardLabel) {
+		if (aCard.getColor() == "Red ") {
+			topCardLabel.setForeground(Color.RED);
+		} else if (aCard.getColor() == "Blue ") {
+			topCardLabel.setForeground(blueCard);
+		} else if (aCard.getColor() == "Yellow ") {
+			topCardLabel.setForeground(Color.YELLOW);
+		} else if (aCard.getColor() == "Green ") {
+			topCardLabel.setForeground(Color.GREEN);
+
+		}
+	}
 }
