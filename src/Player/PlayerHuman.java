@@ -3,6 +3,9 @@ import java.util.ArrayList;
 
 import Card.Card;
 import Card.Deck;
+import Card.SpecialFunction;
+import Logic.Logic;
+import Runner.Controller;
 
 
 public class PlayerHuman {
@@ -40,5 +43,28 @@ public class PlayerHuman {
 	 */
 	public void removeCard(Card playedCard) {
 		this.hand.remove(hand.indexOf(playedCard));
+	}
+	
+	public void cardAction(int cardIndex, Logic logic, SpecialFunction specialFunction, Controller controller, Deck deck ) {
+		boolean valid;
+		if (cardIndex > 0 ) {
+			controller.setCardPlayed(hand.get(cardIndex-1));
+			valid = logic.isValid(controller.getTopCard().get(0),controller.getCardPlayed().get(0));
+			if (valid) {							
+				specialFunction.SpecialFunc(controller.getCardPlayed().get(0), deck, logic, controller);
+				System.out.println(controller.getCardPlayed().get(0));
+				controller.setTopCard(controller.getCardPlayed().get(0));	
+				hand.remove(cardIndex-1);
+				controller.clearCardPlayed();
+				logic.gameState();
+				logic.numOfCards(controller.getPlayer1(), controller.getPlayer2(), controller.getPlayer3(), controller.getPlayer4());
+				System.out.println("Turn" + logic.getPlayerTurn());
+			}	
+		}else if (cardIndex == 0) {
+			deck.draw(1, hand);
+		}
+		if (hand.size() == 0) {
+			//win
+		}
 	}
 }

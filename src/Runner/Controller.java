@@ -19,7 +19,6 @@ public class Controller {
 	private PlayerAI player2 = new PlayerAI();
 	private PlayerAI player3 = new PlayerAI();
 	private PlayerAI player4 = new PlayerAI();
-	private int winner;
 	/**
 	 * Instantiation of topCard list and the CardPlayed list that is used
 	 * as a medium for checking valid play
@@ -33,7 +32,8 @@ public class Controller {
 	 */
 	private Logic logic = new Logic();
 	private Deck deck = new Deck();
-	private SpecialFunction sf = new SpecialFunction();
+	private SpecialFunction specialFunction = new SpecialFunction();
+	UnoActionPerformer actions;
 
 	
 	/**A getter method for the arrayList that contains the topcard
@@ -69,6 +69,10 @@ public class Controller {
 	public void setCardPlayed(Card aCardPlayed) {
 		cardPlayed.clear();
 		cardPlayed.add(aCardPlayed);
+	}
+	
+	public void clearCardPlayed() {
+		cardPlayed.clear();
 	}
 
 	/**Getter for the player turn of type integer that helps determine the player's turn
@@ -116,7 +120,7 @@ public class Controller {
 		player2.initialize(deck);
 		player3.initialize(deck);
 		player4.initialize(deck);
-		UnoActionPerformer actions = new UnoActionPerformer(this);
+		actions = new UnoActionPerformer(this);
 
 	}
 
@@ -125,73 +129,17 @@ public class Controller {
 	 * and the player that wins the game
 	 */
 	public void play(int cardIndex) {
-		boolean valid;
 		if (logic.getPlayerTurn() == 1) {
-			if (cardIndex > 0 ) {
-				cardPlayed.clear();
-				cardPlayed.add(player1.getHand().get(cardIndex-1));	
-				valid = logic.isValid(topCard.get(0),cardPlayed.get(0));
-				if (valid) {							
-					sf.SpecialFunc(cardPlayed.get(0), deck, logic, this);
-					System.out.println(cardPlayed.get(0));
-					topCard.clear();
-					topCard.add(cardPlayed.get(0));		
-					player1.getHand().remove(cardIndex-1);
-					cardPlayed.clear();
-					logic.gameState();
-					logic.numOfCards(player1, player2, player3, player4);
-					System.out.println("Turn" + logic.getPlayerTurn());
-				}	
-			}else if (cardIndex == 0) {
-				deck.draw(1, getPlayer1().getHand());
-			}
-			if (player1.getHand().size() == 0) {
-				winner = 1;
-			}
+		player1.cardAction(cardIndex, logic, specialFunction, this, deck);
 		}
 		if (logic.getPlayerTurn() == 2) {
-			//Make a pause 
-			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 2's Turn" + "\n");
-			//Make a pause
-			Card aCard = player2.cardAI(deck, logic, topCard.get(0));
-			sf.SpecialFunc(aCard, deck, logic, this);
-			topCard.clear();
-			topCard.add(aCard);		
-			cardPlayed.clear();
-			logic.gameState();
-			logic.numOfCards(player1, player2, player3, player4);
-			if (player2.getHand().size() == 0) {
-				winner = 2;	
-			}
+			player2.cardAction(logic, specialFunction, this, deck);
 		}
 		if (logic.getPlayerTurn() == 3) {
-			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 3's Turn" + "\n");
-			Card aCard = player3.cardAI(deck, logic, topCard.get(0));
-			sf.SpecialFunc(aCard, deck, logic, this);
-			topCard.clear();
-			topCard.add(aCard);		
-			cardPlayed.clear();
-			logic.gameState();
-			logic.numOfCards(player1, player2, player3, player4);
-			if (player3.getHand().size() == 0) {
-				winner = 3;
-			}
+			player3.cardAction(logic, specialFunction, this, deck);
 		}
 		if (logic.getPlayerTurn() == 4) {
-			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 4's Turn" + "\n");
-			Card aCard = player4.cardAI(deck, logic, topCard.get(0));
-			sf.SpecialFunc(aCard, deck, logic, this);
-			topCard.clear();
-			topCard.add(aCard);		
-			cardPlayed.clear();
-			logic.gameState();
-			logic.numOfCards(player1, player2, player3, player4);
-			if (player4.getHand().size() == 0) {
-				winner = 4;
-			}
-		}
-		if (winner > 0){
-			System.out.println("Winner of the game is: player " + winner);
+			player4.cardAction(logic, specialFunction, this, deck);
 		}
 	}
 }

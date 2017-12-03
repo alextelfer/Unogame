@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import Card.Card;
 import Card.Deck;
 import Card.SpecialCard;
+import Card.SpecialFunction;
 import Logic.Logic;
+import Runner.Controller;
 
 public class PlayerAI {
 	private ArrayList <Card> hand = new ArrayList <Card>();
@@ -143,5 +145,18 @@ public class PlayerAI {
 			color = 2;
 		}
 		return color;
+	}
+	
+	public void cardAction(Logic logic, SpecialFunction specialFunction, Controller controller, Deck deck ) {
+		System.out.println("\n\n\n\n\n\n\n" + "It is now Player 2's Turn" + "\n");
+		Card aCard = cardAI(deck, logic, controller.getTopCard().get(0));
+		specialFunction.SpecialFunc(aCard, deck, logic, controller);
+		controller.setTopCard(aCard);	
+		controller.clearCardPlayed();
+		logic.gameState();
+		logic.numOfCards(controller.getPlayer1(), controller.getPlayer2(), controller.getPlayer3(), controller.getPlayer4());
+		if (hand.size() == 0) {
+			//display winning window
+		}
 	}
 }
