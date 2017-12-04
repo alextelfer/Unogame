@@ -40,11 +40,7 @@ public class PlayerAI {
 	 * @return a copy of the playerHand
 	 */
 	public ArrayList<Card> getHand(){
-		ArrayList <Card> playerHand = new ArrayList<Card>();
-		for(Card c : hand) {
-			playerHand.add(c);
-		}
-		return playerHand;
+		return hand;
 	}
 	/**
 	 * Used to draw cards to the player's hand at the start of the game
@@ -154,6 +150,15 @@ public class PlayerAI {
 		controller.clearCardPlayed();
 		logic.gameState();
 		logic.numOfCards(controller.getPlayer1(), controller.getPlayer2(), controller.getPlayer3(), controller.getPlayer4());
+		controller.refreshDisplay();
+		try {
+			System.out.println("Sleeping");
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		if (hand.size() == 0) {
 			//display winning window
 		}
