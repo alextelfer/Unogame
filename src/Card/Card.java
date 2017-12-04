@@ -14,6 +14,10 @@ public abstract class Card {
 	public String getColor() {
 		return color;
 	}
+	
+	public int getcolval() {
+		return colval;
+	}
 
 	/** Setter for color of type String
 	 * @param color

@@ -11,7 +11,7 @@ public class SpecialCard extends Card{
 	public int getSpecval() {
 		return this.specval;
 	}
-
+	
 	@Override
 	public String getNumber() {
 		return number;
@@ -68,5 +68,5 @@ public class SpecialCard extends Card{
 		 } 
 	
 	}
-	
+
 }

@@ -51,7 +51,7 @@ public class PlayerAI {
 	 * @param deck of type Deck
 	 */
 	public void initialize(Deck deck) {
-		deck.draw(7,this.hand);
+		deck.draw(7,hand);
 	}
 	
 	/**
@@ -148,7 +148,6 @@ public class PlayerAI {
 	}
 	
 	public void cardAction(Logic logic, SpecialFunction specialFunction, Controller controller, Deck deck ) {
-		System.out.println("\n\n\n\n\n\n\n" + "It is now Player 2's Turn" + "\n");
 		Card aCard = cardAI(deck, logic, controller.getTopCard().get(0));
 		specialFunction.SpecialFunc(aCard, deck, logic, controller);
 		controller.setTopCard(aCard);	

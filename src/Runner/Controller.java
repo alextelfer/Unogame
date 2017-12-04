@@ -40,11 +40,11 @@ public class Controller {
 	 * @return the arrayList <Card> that contains the topCard object for the game
 	 */
 	public ArrayList<Card> getTopCard(){
-		ArrayList <Card> topcard = new ArrayList<Card>();
+		ArrayList <Card> topcardCopy = new ArrayList<Card>();
 		for(Card c : topCard) {
-			topcard.add(c);
+			topcardCopy.add(c);
 		}
-		return topcard;
+		return topcardCopy;
 	}
 	/**Setter for topCard list to take care of privacy leaks
 	 * @param aTopCard object of type Card to set the new topcard in the game
@@ -59,8 +59,11 @@ public class Controller {
 	 * @return the arrayList <Card> of the cardPLayed by the user 
 	 */
 	public ArrayList<Card> getCardPlayed() {
-		ArrayList <Card> playedCard = cardPlayed;
-		return playedCard;
+		ArrayList <Card> cardPlayedCopy = new ArrayList<Card>();
+		for(Card c : cardPlayed) {
+			cardPlayedCopy.add(c);
+		}
+		return cardPlayedCopy;
 	}
 	
 	/**Setter for the cardPLayed of type arrayList <Card> 
@@ -130,15 +133,19 @@ public class Controller {
 	 */
 	public void play(int cardIndex) {
 		if (logic.getPlayerTurn() == 1) {
-		player1.cardAction(cardIndex, logic, specialFunction, this, deck);
+			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 1's Turn" + "\n");
+			player1.cardAction(cardIndex, logic, specialFunction, this, deck);
 		}
 		if (logic.getPlayerTurn() == 2) {
+			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 2's Turn" + "\n");
 			player2.cardAction(logic, specialFunction, this, deck);
 		}
 		if (logic.getPlayerTurn() == 3) {
+			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 3's Turn" + "\n");
 			player3.cardAction(logic, specialFunction, this, deck);
 		}
 		if (logic.getPlayerTurn() == 4) {
+			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 4's Turn" + "\n");
 			player4.cardAction(logic, specialFunction, this, deck);
 		}
 	}

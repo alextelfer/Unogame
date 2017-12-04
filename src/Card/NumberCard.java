@@ -14,6 +14,7 @@ public class NumberCard extends Card{
 		return specval;
 	}
 
+
 	/** Setter for number of type String
 	 * @param number
 	 */
