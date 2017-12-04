@@ -29,7 +29,6 @@ public class UnoGUI extends JFrame {
 	private JFrame wildCardWindow = new JFrame();
 	private JPanel playerPanel = new JPanel();
 	private JPanel wildPanel = new JPanel();
-
 	private Color blueCard = new Color(66, 104, 208);
 
 	/**
@@ -110,23 +109,33 @@ public class UnoGUI extends JFrame {
 	}
 
 	public void wildCardButtons(ActionListener listener) {
+		JPanel promptPanel = new JPanel();
+		JLabel prompt = new JLabel("Pick a Color");
+		prompt.setAlignmentY(CENTER_ALIGNMENT);
+		promptPanel.add(prompt);
+		getWildCardWindow().getContentPane().add(promptPanel, BorderLayout.NORTH);
 		JButton redColor = new JButton("RED");
 		redColor.setActionCommand("RED");
 		redColor.addActionListener(listener);
+		redColor.setBackground(Color.RED);
 		wildPanel.add(redColor);
 		JButton blueColor = new JButton("BLUE");
 		blueColor.setActionCommand("BLUE");
 		blueColor.addActionListener(listener);
+		blueColor.setBackground(Color.BLUE);
 		wildPanel.add(blueColor);
 		JButton yellowColor = new JButton("YELLOW");
 		yellowColor.setActionCommand("YELLOW");
 		yellowColor.addActionListener(listener);
+		yellowColor.setBackground(Color.YELLOW);
 		wildPanel.add(yellowColor);
 		JButton greenColor = new JButton("GREEN");
 		greenColor.setActionCommand("GREEN");
 		greenColor.addActionListener(listener);
+		greenColor.setBackground(Color.GREEN);
 		wildPanel.add(greenColor);
-		wildCardWindow.getContentPane().add(wildPanel, BorderLayout.CENTER);
+		getWildCardWindow().getContentPane().add(wildPanel, BorderLayout.CENTER);
+		getWildCardWindow().pack();
 	}
 
 	public void setLabelColor(Card aCard, JLabel topCardLabel) {
@@ -138,7 +147,10 @@ public class UnoGUI extends JFrame {
 			topCardLabel.setForeground(Color.YELLOW);
 		} else if (aCard.getColor() == "Green ") {
 			topCardLabel.setForeground(Color.GREEN);
-
 		}
+	}
+
+	public JFrame getWildCardWindow() {
+		return wildCardWindow;
 	}
 }

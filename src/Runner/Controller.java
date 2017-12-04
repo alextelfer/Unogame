@@ -25,7 +25,7 @@ public class Controller {
 	 */
 	private ArrayList <Card> topCard = new ArrayList <Card>();
 	private ArrayList <Card> cardPlayed = new ArrayList <Card>();
-
+	
 	/**
 	 * Instantiation of all the classes required to make the game run. These include the logic, deck, 
 	 * display cards and special function of cards classes
@@ -33,7 +33,8 @@ public class Controller {
 	private Logic logic = new Logic();
 	private Deck deck = new Deck();
 	private SpecialFunction specialFunction = new SpecialFunction();
-	UnoActionPerformer actions;
+	private UnoActionPerformer actions;
+	private String colorWild;
 
 	
 	/**A getter method for the arrayList that contains the topcard
@@ -148,5 +149,12 @@ public class Controller {
 			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 4's Turn" + "\n");
 			player4.cardAction(logic, specialFunction, this, deck);
 		}
+	}
+	public String getColorWild() {
+		return colorWild;
+	}
+	public void setColorWild(String colorWild) {
+		this.colorWild = colorWild;
+		
 	}
 }

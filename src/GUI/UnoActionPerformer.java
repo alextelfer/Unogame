@@ -28,5 +28,12 @@ public class UnoActionPerformer implements ActionListener{
 		int cardIndex = Integer.parseInt(event.getActionCommand());
 		this.controller.play(cardIndex); //is supposed to have the card index passed onto the play method
 		gui.display(controller, this);
+		if (cardIndex > 0) {
+			if(controller.getPlayer1().getHand().get(cardIndex-1).equals("Wild") || controller.getPlayer1().getHand().get(cardIndex-1).equals("Wild Draw 4")) {
+				gui.getWildCardWindow().setVisible(true);
+				controller.setColorWild(event.getActionCommand());
+			}
+		}
+		
 	}
 }

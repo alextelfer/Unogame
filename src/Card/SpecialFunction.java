@@ -95,19 +95,17 @@ public class SpecialFunction {
 	 * @param controller
 	 */
 	public void WildCard(Controller controller) {
-		System.out.println("Choose a color: [1] RED, [2] BLUE, [3] YELLOW, [4] GREEN");
-		Scanner keyboard = new Scanner(System.in);
-		int next = keyboard.nextInt();
-		if (next == 1) {
+		String color = controller.getColorWild();
+		if (color == "RED") {
 			SpecialCard scard = new SpecialCard(0, -1);
 			controller.setCardPlayed(scard);
-		} else if (next == 2 ) {		
+		} else if (color == "BLUE") {		
 			SpecialCard scard = new SpecialCard(1, -1);
 			controller.setCardPlayed(scard);
-		} else if (next == 3) {		
+		} else if (color == "YELLOW") {		
 			SpecialCard scard = new SpecialCard(2, -1);
 			controller.setCardPlayed(scard);
-		} else if (next == 4) {		
+		} else if (color == "GREEN") {		
 			SpecialCard scard = new SpecialCard(3, -1);
 			controller.setCardPlayed(scard);
 		}
