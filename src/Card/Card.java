@@ -15,6 +15,9 @@ public abstract class Card {
 		return color;
 	}
 	
+	/** Getter for colval of type integer
+	 * @return a reference of colval
+	 */
 	public int getcolval() {
 		return colval;
 	}
