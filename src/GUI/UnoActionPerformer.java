@@ -17,6 +17,10 @@ public class UnoActionPerformer implements ActionListener{
 		gui = new UnoGUI();
 		gui.display(controller, this);
 	}
+	
+	public UnoGUI getGUI() {
+		return gui;
+	}
 
 	/**
 	*Action listener, recieves button input from the user and calls play() from the Uno class to update the 
@@ -24,15 +28,14 @@ public class UnoActionPerformer implements ActionListener{
 	@param an ActionEvent
 	*/
 	public void actionPerformed(ActionEvent event){
-		System.out.println(event.getActionCommand());
-		int cardIndex = Integer.parseInt(event.getActionCommand());
-		this.controller.play(cardIndex); //is supposed to have the card index passed onto the play method
-		gui.display(controller, this);
-		if (cardIndex > 0) {
-			if(controller.getPlayer1().getHand().get(cardIndex-1).equals("Wild") || controller.getPlayer1().getHand().get(cardIndex-1).equals("Wild Draw 4")) {
-				gui.getWildCardWindow().setVisible(true);
-				controller.setColorWild(event.getActionCommand());
-			}
+		if (event.getActionCommand().equals("YELLOW") || event.getActionCommand().equals("GREEN") || event.getActionCommand().equals("BLUE") || event.getActionCommand().equals("RED")) {
+			controller.setColorWild(event.getActionCommand());
+			gui.clearWildCardButtons();
+		}
+		else {
+			int cardIndex = Integer.parseInt(event.getActionCommand());
+			this.controller.play(cardIndex); //is supposed to have the card index passed onto the play method
+			gui.display(controller, this);
 		}
 		
 	}

@@ -6,8 +6,10 @@ import Runner.Controller;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -25,10 +27,11 @@ public class UnoGUI extends JFrame {
 	private JButton card = new JButton();
 	private Card aCard;
 
-	private JFrame gameWindow = new JFrame();
-	private JFrame wildCardWindow = new JFrame();
-	private JPanel playerPanel = new JPanel();
 	private JPanel wildPanel = new JPanel();
+	private JDialog wildCardWindow = new JDialog();
+	private JFrame gameWindow = new JFrame();
+	private JPanel playerPanel = new JPanel();
+
 	private Color blueCard = new Color(66, 104, 208);
 
 	/**
@@ -63,7 +66,6 @@ public class UnoGUI extends JFrame {
 
 		gameWindow.getContentPane().add(topCardLabel, BorderLayout.CENTER);
 		cardButton(game.getPlayer1().getHand(), listener);
-		wildCardButtons(listener);
 
 		gameWindow.setVisible(true);
 
@@ -107,13 +109,19 @@ public class UnoGUI extends JFrame {
 		playerPanel.add(drawCardButton);
 		gameWindow.getContentPane().add(playerPanel, BorderLayout.SOUTH);
 	}
+	
+	public void clearWildCardButtons() {
+		wildCardWindow.dispose();
+	}
 
 	public void wildCardButtons(ActionListener listener) {
+		wildCardWindow.setModal(true);
+		wildCardWindow.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		JPanel promptPanel = new JPanel();
 		JLabel prompt = new JLabel("Pick a Color");
 		prompt.setAlignmentY(CENTER_ALIGNMENT);
 		promptPanel.add(prompt);
-		getWildCardWindow().getContentPane().add(promptPanel, BorderLayout.NORTH);
+		wildCardWindow.getContentPane().add(promptPanel, BorderLayout.NORTH);
 		JButton redColor = new JButton("RED");
 		redColor.setActionCommand("RED");
 		redColor.addActionListener(listener);
@@ -134,8 +142,10 @@ public class UnoGUI extends JFrame {
 		greenColor.addActionListener(listener);
 		greenColor.setBackground(Color.GREEN);
 		wildPanel.add(greenColor);
-		getWildCardWindow().getContentPane().add(wildPanel, BorderLayout.CENTER);
-		getWildCardWindow().pack();
+		wildCardWindow.getContentPane().add(wildPanel, BorderLayout.CENTER);
+		wildCardWindow.pack();
+		wildCardWindow.setVisible(true);
+
 	}
 
 	public void setLabelColor(Card aCard, JLabel topCardLabel) {
@@ -150,7 +160,4 @@ public class UnoGUI extends JFrame {
 		}
 	}
 
-	public JFrame getWildCardWindow() {
-		return wildCardWindow;
-	}
 }

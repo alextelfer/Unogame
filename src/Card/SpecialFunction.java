@@ -22,10 +22,8 @@ public class SpecialFunction {
 		boolean turn = logic.isClockwise();
 		/** Draw 2 card functionality */
 		if (cardPlayed.getNumber().equals("Draw 2")) {
-			System.out.println(nextPlayer.size());
 			playerCheck(logic,controller);
 			deck.draw(2, nextPlayer);
-			System.out.println(nextPlayer.size());
 			if (turn) {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn + 2);
@@ -95,6 +93,7 @@ public class SpecialFunction {
 	 * @param controller
 	 */
 	public void WildCard(Controller controller) {
+		controller.runWildGUI();
 		String color = controller.getColorWild();
 		if (color == "RED") {
 			SpecialCard scard = new SpecialCard(0, -1);

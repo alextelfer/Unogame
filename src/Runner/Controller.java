@@ -150,6 +150,11 @@ public class Controller {
 			player4.cardAction(logic, specialFunction, this, deck);
 		}
 	}
+	
+	public void runWildGUI() {
+		UnoGUI gui = actions.getGUI();
+		gui.wildCardButtons(actions);
+	}
 	public String getColorWild() {
 		return colorWild;
 	}

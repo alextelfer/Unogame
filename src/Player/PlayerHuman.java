@@ -58,7 +58,6 @@ public class PlayerHuman {
 				controller.clearCardPlayed();
 				logic.gameState();
 				logic.numOfCards(controller.getPlayer1(), controller.getPlayer2(), controller.getPlayer3(), controller.getPlayer4());
-				System.out.println("Turn" + logic.getPlayerTurn());
 			}	
 		}else if (cardIndex == 0) {
 			deck.draw(1, hand);
