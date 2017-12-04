@@ -21,8 +21,13 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import javax.swing.BoxLayout;
+import javax.swing.SwingConstants;
 
 public class UnoGUI extends JFrame {
+	
 
 	private static final int WINDOW_WIDTH = 1000;
 	private static final int WINDOW_HEIGHT = 1000;
@@ -33,10 +38,11 @@ public class UnoGUI extends JFrame {
 	private JPanel wildPanel = new JPanel();
 	private JDialog wildCardWindow = new JDialog();
 	private JFrame gameWindow = new JFrame();
-	private JPanel playerPanel = new JPanel();
-	private JPanel centerPanel = new JPanel(new BorderLayout());
+	private JPanel playerPanel = new JPanel(new FlowLayout());
+	private JPanel centerPanel = new JPanel();
 	
-	private Dimension minimumSize = new Dimension(1000,1000);
+	
+	
 	private Color blueCard = new Color(66, 104, 208);
 
 	/**
@@ -49,16 +55,17 @@ public class UnoGUI extends JFrame {
 	 */
 
 	public void display(Controller game, ActionListener listener) {
-		// gameWindow.getContentPane().setBackground(Color.white);
+		
 		gameWindow.getContentPane().removeAll();
 		gameWindow.getContentPane().revalidate();
 		gameWindow.getContentPane().repaint();
 
+		gameWindow.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		
-		gameWindow.setMinimumSize(minimumSize);
-	//	gameWindow.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		gameWindow.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+		
+		centerPanel = new JPanel();
+		centerPanel.setPreferredSize(new Dimension(500,200));
 		JLabel player2Cards = new JLabel("Player 2 has: " + game.getPlayer2().getHand().size() + " Cards");
 		JLabel player3Cards = new JLabel("Player 3 has: " + game.getPlayer3().getHand().size() + " Cards",
 				JLabel.CENTER);
@@ -68,30 +75,28 @@ public class UnoGUI extends JFrame {
 		gameWindow.getContentPane().add(player4Cards, BorderLayout.EAST);
 
 		String topCardAsString = game.getTopCard().get(0).toString();
-		
-		
+
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 		
 		JLabel topCardLabel = new JLabel(topCardAsString, JLabel.CENTER);
-		TitledBorder topCard = new TitledBorder(blackline, "The Top Card is:", TitledBorder.CENTER, TitledBorder.ABOVE_TOP);
+		topCardLabel.setBounds(350, 300, 300, 150);
+		TitledBorder topCard = new TitledBorder(blackline, "The Top Card is:", TitledBorder.CENTER,
+				TitledBorder.ABOVE_TOP);
 		topCardLabel.setBorder(topCard);
-	//	centerPanel.add(topCardLabel);
 		
-//		JLabel playerTurnLabel = new JLabel("it is player" + game.getPlayerTurn() + "'s turn");
-//		playerTurnLabel.setSize(50, 100);
-//		playerTurnLabel.setBorder(new LineBorder(Color.BLACK));
-		
-		
-//		playerTurnLabel.setPreferredSize(new Dimension(150,150));
 		setLabelColor(game.getTopCard().get(0), topCardLabel);
 
-		gameWindow.getContentPane().add(topCardLabel, BorderLayout.CENTER);
-		
-	//	gameWindow.getContentPane().add(centerPanel);
+		JLabel playerTurnLabel = new JLabel("it is player " + game.getPlayerTurn() + "'s turn", JLabel.CENTER);
+		playerTurnLabel.setAlignmentY(BOTTOM_ALIGNMENT);
+		gameWindow.getContentPane().add(topCardLabel);
+		gameWindow.getContentPane().add(playerTurnLabel);
+
 		cardButton(game.getPlayer1().getHand(), listener);
 
 		gameWindow.setVisible(true);
-		gameWindow.pack();
+
+	
+		
 	}
 
 	/**
@@ -104,6 +109,7 @@ public class UnoGUI extends JFrame {
 	public void cardButton(ArrayList<Card> playerCards, ActionListener listener) {
 
 		playerPanel = new JPanel();
+		playerPanel.setPreferredSize(new Dimension(1000,100));
 		for (int i = 0; i < playerCards.size(); i++) {
 			aCard = playerCards.get(i);
 			String aFace = aCard.toString();
@@ -125,14 +131,18 @@ public class UnoGUI extends JFrame {
 			card.addActionListener(listener);
 			playerPanel.add(card);
 		}
+		gameWindow.getContentPane().add(centerPanel);
 		JButton drawCardButton = new JButton("Draw Card");
+		drawCardButton.setVerticalAlignment(SwingConstants.BOTTOM);
 		drawCardButton.setBackground(Color.MAGENTA);
 		drawCardButton.setActionCommand(Integer.toString(0));
 		drawCardButton.addActionListener(listener);
-		playerPanel.add(drawCardButton);
+		centerPanel.setLayout(null);
+		drawCardButton.setBounds(283, 613, 108, 25);
+		centerPanel.add(drawCardButton);
 		gameWindow.getContentPane().add(playerPanel, BorderLayout.SOUTH);
 	}
-	
+
 	public void clearWildCardButtons() {
 		wildCardWindow.dispose();
 	}
