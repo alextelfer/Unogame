@@ -133,24 +133,34 @@ public class Controller {
 	 * and the player that wins the game
 	 */
 	public void play(int cardIndex) {
-		if (logic.getPlayerTurn() == 1) {
-			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 1's Turn" + "\n");
-			player1.cardAction(cardIndex, logic, specialFunction, this, deck);
-		}
-		if (logic.getPlayerTurn() == 2) {
-			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 2's Turn" + "\n");
-			player2.cardAction(logic, specialFunction, this, deck);
-		}
-		if (logic.getPlayerTurn() == 3) {
-			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 3's Turn" + "\n");
-			player3.cardAction(logic, specialFunction, this, deck);
-		}
-		if (logic.getPlayerTurn() == 4) {
-			System.out.println("\n\n\n\n\n\n\n" + "It is now Player 4's Turn" + "\n");
-			player4.cardAction(logic, specialFunction, this, deck);
+		while (true) {
+			if (logic.getPlayerTurn() == 1) {
+				System.out.println("\n\n\n\n\n\n\n" + "It is now Player 1's Turn" + "\n");
+				player1.cardAction(cardIndex, logic, specialFunction, this, deck);
+			}
+			if (logic.getPlayerTurn() == 2) {
+				System.out.println("\n\n\n\n\n\n\n" + "It is now Player 2's Turn" + "\n");
+				player2.cardAction(logic, specialFunction, this, deck);
+			}
+			if (logic.getPlayerTurn() == 3) {
+				System.out.println("\n\n\n\n\n\n\n" + "It is now Player 3's Turn" + "\n");
+				player3.cardAction(logic, specialFunction, this, deck);
+			}
+			if (logic.getPlayerTurn() == 4) {
+				System.out.println("\n\n\n\n\n\n\n" + "It is now Player 4's Turn" + "\n");
+				player4.cardAction(logic, specialFunction, this, deck);
+			}
+			if (logic.getPlayerTurn() == 1){
+				break;
+			}
 		}
 	}
 	
+	public void refreshDisplay() {
+		UnoGUI gui = actions.getGUI();
+		gui.display(this, actions);
+	}
+
 	public void runWildGUI() {
 		UnoGUI gui = actions.getGUI();
 		gui.wildCardButtons(actions);
