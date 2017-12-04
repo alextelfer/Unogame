@@ -4,7 +4,9 @@ import Card.*;
 
 import Runner.Controller;
 
+import javax.swing.border.*;
 import javax.swing.JFrame;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -14,6 +16,7 @@ import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 
@@ -31,7 +34,9 @@ public class UnoGUI extends JFrame {
 	private JDialog wildCardWindow = new JDialog();
 	private JFrame gameWindow = new JFrame();
 	private JPanel playerPanel = new JPanel();
-
+	private JPanel centerPanel = new JPanel(new BorderLayout());
+	
+	private Dimension minimumSize = new Dimension(1000,1000);
 	private Color blueCard = new Color(66, 104, 208);
 
 	/**
@@ -49,7 +54,9 @@ public class UnoGUI extends JFrame {
 		gameWindow.getContentPane().revalidate();
 		gameWindow.getContentPane().repaint();
 
-		gameWindow.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		
+		gameWindow.setMinimumSize(minimumSize);
+	//	gameWindow.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		gameWindow.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		JLabel player2Cards = new JLabel("Player 2 has: " + game.getPlayer2().getHand().size() + " Cards");
@@ -61,14 +68,30 @@ public class UnoGUI extends JFrame {
 		gameWindow.getContentPane().add(player4Cards, BorderLayout.EAST);
 
 		String topCardAsString = game.getTopCard().get(0).toString();
-		JLabel topCardLabel = new JLabel("Top Card: " + topCardAsString, JLabel.CENTER);
+		
+		
+		Border blackline = BorderFactory.createLineBorder(Color.black);
+		
+		JLabel topCardLabel = new JLabel(topCardAsString, JLabel.CENTER);
+		TitledBorder topCard = new TitledBorder(blackline, "The Top Card is:", TitledBorder.CENTER, TitledBorder.ABOVE_TOP);
+		topCardLabel.setBorder(topCard);
+	//	centerPanel.add(topCardLabel);
+		
+//		JLabel playerTurnLabel = new JLabel("it is player" + game.getPlayerTurn() + "'s turn");
+//		playerTurnLabel.setSize(50, 100);
+//		playerTurnLabel.setBorder(new LineBorder(Color.BLACK));
+		
+		
+//		playerTurnLabel.setPreferredSize(new Dimension(150,150));
 		setLabelColor(game.getTopCard().get(0), topCardLabel);
 
 		gameWindow.getContentPane().add(topCardLabel, BorderLayout.CENTER);
+		
+	//	gameWindow.getContentPane().add(centerPanel);
 		cardButton(game.getPlayer1().getHand(), listener);
 
 		gameWindow.setVisible(true);
-
+		gameWindow.pack();
 	}
 
 	/**
@@ -115,6 +138,9 @@ public class UnoGUI extends JFrame {
 	}
 
 	public void wildCardButtons(ActionListener listener) {
+		wildCardWindow.getContentPane().removeAll();
+		wildCardWindow.getContentPane().revalidate();
+		wildCardWindow.getContentPane().repaint();
 		wildCardWindow.setModal(true);
 		wildCardWindow.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		JPanel promptPanel = new JPanel();
