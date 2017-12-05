@@ -20,7 +20,7 @@ public class SpecialFunction {
 	 */
 	public void SpecialFunc(Card cardPlayed, Deck deck, Logic logic, Controller controller) {
 		boolean turn = logic.isClockwise();
-		/** Draw 2 card functionality */
+		// Draw 2 card functionality 
 		if (cardPlayed.getNumber().equals("Draw 2")) {
 			playerCheck(logic,controller);
 			deck.draw(2, nextPlayer);
@@ -32,7 +32,7 @@ public class SpecialFunction {
 				logic.setPlayerTurn(playerTurn - 2);
 			}
 				
-		/** Reverse card functionality */
+		// Reverse card functionality 
 		} else if (cardPlayed.getNumber().equals("Reverse")) {
 			if (turn) {
 				logic.setPlayerTurn(logic.getPlayerTurn()-1);
@@ -41,7 +41,7 @@ public class SpecialFunction {
 			}
 			logic.setClockwise(!logic.isClockwise());
 			
-		/** Skip card functionality */
+		// Skip card functionality 
 		} else if (cardPlayed.getNumber().equals("Skip")) {
 			if (turn) {
 				int playerTurn = logic.getPlayerTurn();
@@ -51,7 +51,7 @@ public class SpecialFunction {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn - 2);
 			}
-		/** Wild card functionality */
+		// Wild card functionality 
 		} else if (cardPlayed.getNumber().equals("Wild") || cardPlayed.getSpecval() == -1) { //-1 specval: variable to determine wildcards for AI
 			if (logic.getPlayerTurn() == 1) {
 				WildCard(controller);
@@ -64,7 +64,7 @@ public class SpecialFunction {
 				int playerTurn = logic.getPlayerTurn();
 				logic.setPlayerTurn(playerTurn - 1);
 			}
-		/** Wild Draw 4 functionality */
+		// Wild Draw 4 functionality 
 		} else if (cardPlayed.getNumber().equals("Wild Draw 4") || cardPlayed.getSpecval() == -2) {//-2 specval: variable to determine wild draw 4 for AI
 			if (logic.getPlayerTurn() == 1) {
 				WildCard(controller);
@@ -118,7 +118,7 @@ public class SpecialFunction {
 	public ArrayList<Card> playerCheck(Logic logic, Controller controller) {
 		/**PRIVACY LEAK: EDITING THROUGH GETTER; NEEDED BECAUSE CHANGSE TO NEXTPLAYER NEED TO HAPPEN TO 
 		 *THE PLAYER HAND LISTS
-		REPLACE RETURN WITH SET() */
+		 *REPLACE RETURN WITH SET() */
 		boolean turn = logic.isClockwise();
 		if (turn) {
 			int thisPlayer = logic.getPlayerTurn();
