@@ -3,14 +3,25 @@ import java.util.ArrayList;
 
 import Card.Card;
 import Card.Deck;
-import Card.DisplayCards;
 import Card.SpecialFunction;
+import GUI.UnoActionPerformer;
+import GUI.UnoGUI;
 import Logic.Logic;
 import Player.PlayerAI;
 import Player.PlayerHuman;
 
+/**
+ * Class that handles communication between GUI and logic classes. 
+ * Class also handles the general turn structure for the game, and contains instances of player classes, the topCard and cardPlayed.
+ */
 
 public class Controller {
+	
+	/**
+	 * INTENTIONAL PRIVACY LEAKS: All references relating to hand ArrayLists and card objects within hand ArrayLists must be shared. Various classes edit/create
+	 * artificial card objects and remove/add new card objects so they must be provided with the instance itself.
+	 */
+	
 	/**
 	 * Instantiation of all the 4 players in the game; 1 Human Player, 3 AI players
 	 */
@@ -18,33 +29,54 @@ public class Controller {
 	private PlayerAI player2 = new PlayerAI();
 	private PlayerAI player3 = new PlayerAI();
 	private PlayerAI player4 = new PlayerAI();
-	private int winner;
 	/**
 	 * Instantiation of topCard list and the CardPlayed list that is used
 	 * as a medium for checking valid play
 	 */
 	private ArrayList <Card> topCard = new ArrayList <Card>();
 	private ArrayList <Card> cardPlayed = new ArrayList <Card>();
-
+	
 	/**
 	 * Instantiation of all the classes required to make the game run. These include the logic, deck, 
 	 * display cards and special function of cards classes
 	 */
 	private Logic logic = new Logic();
 	private Deck deck = new Deck();
-	private DisplayCards display = new DisplayCards();
-	private SpecialFunction sf = new SpecialFunction();
+	private SpecialFunction specialFunction = new SpecialFunction();
+	private UnoActionPerformer actions;
+	
+	/**
+	 * Instance variable used to pass the color selected by the player in runWildGUI to the player classes
+	 */
+	private String colorWild;
 
+	/**Called by SpecialFunction.WildCard() 
+	 * method that communicates between UnoActionPerformer and SpecialFunction to pass the color selected by the player to the logic classes
+	 * @return colorWild
+	 */
+	public String getColorWild() {
+		return colorWild;
+	}
+	
+	/** called by UnoActionPerformer after player selects a color for the wild card
+	 * method that communicates between UnoActionPerformer and SpecialFunction to pass the color selected by the player to the logic classes
+	 * @param colorWild
+	 */
+	public void setColorWild(String colorWild) {
+		this.colorWild = colorWild;
+		
+	}
 	
 	/**A getter method for the arrayList that contains the topcard
 	 * @return the arrayList <Card> that contains the topCard object for the game
+	 * INTENTIONAL PRIVACY LEAK: creates a new list but references to individual cards must be shared
 	 */
 	public ArrayList<Card> getTopCard(){
-		ArrayList <Card> topcard = new ArrayList<Card>();
+		ArrayList <Card> topcardCopy = new ArrayList<Card>();
 		for(Card c : topCard) {
-			topcard.add(c);
+			topcardCopy.add(c);
 		}
-		return topcard;
+		return topcardCopy;
 	}
 	/**Setter for topCard list to take care of privacy leaks
 	 * @param aTopCard object of type Card to set the new topcard in the game
@@ -57,10 +89,14 @@ public class Controller {
 	
 	/**Getter of type arrayList<Card> to get the card played by the user
 	 * @return the arrayList <Card> of the cardPLayed by the user 
+	 * INTENTIONAL PRIVACY LEAK: creates a new list but references to individual cards must be shared
 	 */
 	public ArrayList<Card> getCardPlayed() {
-		ArrayList <Card> playedCard = cardPlayed;
-		return playedCard;
+		ArrayList <Card> cardPlayedCopy = new ArrayList<Card>();
+		for(Card c : cardPlayed) {
+			cardPlayedCopy.add(c);
+		}
+		return cardPlayedCopy;
 	}
 	
 	/**Setter for the cardPLayed of type arrayList <Card> 
@@ -69,6 +105,10 @@ public class Controller {
 	public void setCardPlayed(Card aCardPlayed) {
 		cardPlayed.clear();
 		cardPlayed.add(aCardPlayed);
+	}
+	
+	public void clearCardPlayed() {
+		cardPlayed.clear();
 	}
 
 	/**Getter for the player turn of type integer that helps determine the player's turn
@@ -116,95 +156,42 @@ public class Controller {
 		player2.initialize(deck);
 		player3.initialize(deck);
 		player4.initialize(deck);
+		actions = new UnoActionPerformer(this);
+
 	}
-	/**
-	 * the play method is what controls the state of the game, keeps track of which player's turn it is
-	 * and the player that wins the game
+
+	/** Called by UnoActionPerformer.actionPerformed() (Called after every button press)
+	 * the play method is what controls the state of the game and the order of turns between AI players and human players
 	 */
-	public void play() {
-		boolean gameComplete = false;
-		while (!gameComplete){
+	public void play(int cardIndex) {
+		while (true) {
 			if (logic.getPlayerTurn() == 1) {
 				System.out.println("\n\n\n\n\n\n\n" + "It is now Player 1's Turn" + "\n");
-				boolean valid = false;
-				while (!valid){
-					int cardIndex = display.displayDeck(topCard, player1.getHand());
-					if (cardIndex > 0 ) {
-						cardPlayed.clear();
-						cardPlayed.add(player1.getHand().get(cardIndex-1));					
-						if (valid = logic.isValid(topCard.get(0),cardPlayed.get(0))) {							
-							sf.SpecialFunc(cardPlayed.get(0), deck, logic, this);
-							System.out.println(cardPlayed.get(0));
-							topCard.clear();
-							topCard.add(cardPlayed.get(0));		
-							player1.getHand().remove(cardIndex-1);
-							cardPlayed.clear();
-							logic.gameState();
-							logic.numOfCards(player1, player2, player3, player4);
-						}	
-					}else if (cardIndex == 0) {
-						deck.draw(1, getPlayer1().getHand());
-					}
-				}
-				logic.lastCard(player1.getHand());
-				if (player1.getHand().size() == 0) {
-					winner = 1;
-					gameComplete = true;
-				}
+				player1.cardAction(cardIndex, logic, specialFunction, this, deck);
 			}
-			else if (logic.getPlayerTurn() == 2) {
+			if (logic.getPlayerTurn() == 2) {
 				System.out.println("\n\n\n\n\n\n\n" + "It is now Player 2's Turn" + "\n");
-				Card aCard = player2.cardAI(deck, logic, topCard.get(0));
-				sf.SpecialFunc(aCard, deck, logic, this);
-				topCard.clear();
-				topCard.add(aCard);		
-				cardPlayed.clear();
-				logic.gameState();
-				logic.numOfCards(player1, player2, player3, player4);
-				if (player2.getHand().size() == 0) {
-					winner = 2;
-					gameComplete = true;
-				}
+				player2.cardAction(logic, specialFunction, this, deck);
 			}
-			else if (logic.getPlayerTurn() == 3) {
+			if (logic.getPlayerTurn() == 3) {
 				System.out.println("\n\n\n\n\n\n\n" + "It is now Player 3's Turn" + "\n");
-				Card aCard = player3.cardAI(deck, logic, topCard.get(0));
-				sf.SpecialFunc(aCard, deck, logic, this);
-				topCard.clear();
-				topCard.add(aCard);		
-				cardPlayed.clear();
-				logic.gameState();
-				logic.numOfCards(player1, player2, player3, player4);
-				if (player3.getHand().size() == 0) {
-					winner = 3;
-					gameComplete = true;
-				}
+				player3.cardAction(logic, specialFunction, this, deck);
 			}
-			else if (logic.getPlayerTurn() == 4) {
+			if (logic.getPlayerTurn() == 4) {
 				System.out.println("\n\n\n\n\n\n\n" + "It is now Player 4's Turn" + "\n");
-				Card aCard = player4.cardAI(deck, logic, topCard.get(0));
-				sf.SpecialFunc(aCard, deck, logic, this);
-				topCard.clear();
-				topCard.add(aCard);		
-				cardPlayed.clear();
-				logic.gameState();
-				logic.numOfCards(player1, player2, player3, player4);
-				if (player4.getHand().size() == 0) {
-					winner = 4;
-					gameComplete = true;
-				}
-			} else {
-				System.out.println("How tho?");
-				try {
-					Thread.sleep(5000000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				player4.cardAction(logic, specialFunction, this, deck);
+			}
+			if (logic.getPlayerTurn() == 1){
+				break;
 			}
 		}
-		if (winner > 0){
-			System.out.println("Winner of the game is: player " + winner);
-			System.exit(0);
-		}
+	}
+	
+	/** Called by SpecialFunction.specialFunc() whenever a wild card is played
+	 * method calls gui.wildCardButtons() which creates the window to select a color after a wild card is played
+	 */
+	public void runWildGUI() {
+		UnoGUI gui = actions.getGUI();
+		gui.wildCardButtons(actions);
 	}
 }
