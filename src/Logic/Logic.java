@@ -1,11 +1,16 @@
 package Logic;
 import Card.Card;
+
 import Card.Deck;
 import Player.PlayerAI;
 import Player.PlayerHuman;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class contains methods that handle general game logic
+ *
+ */
 
 public class Logic {
 	private int playerTurn = 1;
@@ -40,7 +45,8 @@ public class Logic {
 		this.clockwise = clockwise;
 	}
 	
-	/** Method that checks the if the card played is valid or not
+	/** Called by PlayerAI.cardAI() and PlayerHuman.cardAction()
+	 * Method that checks the if the card played is valid or not
 	 * @param topCard
 	 * @param cardPlayed
 	 * @return valid of type boolean
@@ -60,8 +66,8 @@ public class Logic {
 		return valid;
 	}
 	
-	/** Method that sets the playerTurn according to the order of play
-	 * 
+	/** Called by cardAction() in both player classes
+	 * Method updates playerTurn after every turn end. 
 	 */
 	public void gameState(){
 		if (playerTurn == 5) {
@@ -84,17 +90,14 @@ public class Logic {
 	 * @param player4
 	 */
 	public void numOfCards(PlayerHuman player1, PlayerAI player2, PlayerAI player3, PlayerAI player4) {
-		int numPlayer1 = player1.getHand().size();
-		int numPlayer2 = player2.getHand().size();
-		int numPlayer3 = player3.getHand().size();
-		int numPlayer4 = player4.getHand().size();
-		System.out.println("Player 1 has " + numPlayer1 + " Cards");
-		System.out.println("Player 2 has " + numPlayer2 + " Cards");
-		System.out.println("Player 3 has " + numPlayer3 + " Cards");
-		System.out.println("Player 4 has " + numPlayer4 + " Cards");
+		System.out.println("Player 1 has " + player1.getHand().size() + " Cards");
+		System.out.println("Player 2 has " + player2.getHand().size() + " Cards");
+		System.out.println("Player 3 has " + player3.getHand().size() + " Cards");
+		System.out.println("Player 4 has " + player4.getHand().size() + " Cards");
 	}
 	
 	/** Method that makes the player type "Uno" or "uno" to win
+	 * Unused in GUI version
 	 * @param playerhand of type ArrayList<Card>
 	 */
 	public void lastCard(ArrayList<Card> playerhand) {
