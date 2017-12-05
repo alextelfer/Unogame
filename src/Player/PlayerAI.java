@@ -4,11 +4,22 @@ import java.util.ArrayList;
 import Card.Card;
 import Card.Deck;
 import Card.SpecialCard;
+import Card.SpecialFunction;
 import Logic.Logic;
+import Runner.Controller;
+
+/**
+ * Player class that handles all AI related methods, AI decision making and editing game variables corresponding to AI turns
+ * Each player class has an instance variable of a hand of cards
+ */
 
 public class PlayerAI {
 	private ArrayList <Card> hand = new ArrayList <Card>();
-
+	
+	/**
+	 * INTENTIONAL PRIVACY LEAKS: All references relating to hand ArrayLists and card objects within hand ArrayLists must be shared. Various classes edit/create
+	 * artificial card objects and remove/add new card objects so they must be provided with the instance itself.
+	 */
 	
 	/**
 	 * Default constructor for the PlayerAI Class
@@ -28,28 +39,26 @@ public class PlayerAI {
 	/**
 	 * Copy Constructor for PlayerAI 
 	 * @param toCopy of type PlayerAI to stop privacy leak
+	 * INTENTIONAL PRIVACY LEAK: Hand references must be shared 
 	 */
 	public PlayerAI(PlayerAI toCopy) {
 		this.hand = toCopy.hand;
 	}	
 	
 	/**
-	 * Getter for the arraylist that contains the cards in a player hand
-	 * @return a copy of the playerHand
+	 * Getter for the arrayList that contains the cards in a player hand
+	 * @return a reference to the playerHand
+	 * INTENTIONAL PRIVACY LEAK: Hand references must be shared
 	 */
 	public ArrayList<Card> getHand(){
-		ArrayList <Card> playerHand = new ArrayList<Card>();
-		for(Card c : hand) {
-			playerHand.add(c);
-		}
-		return playerHand;
+		return hand;
 	}
 	/**
 	 * Used to draw cards to the player's hand at the start of the game
 	 * @param deck of type Deck
 	 */
 	public void initialize(Deck deck) {
-		deck.draw(7,this.hand);
+		deck.draw(7,hand);
 	}
 	
 	/**
@@ -60,8 +69,8 @@ public class PlayerAI {
 		this.hand.remove(hand.indexOf(playedCard));
 	}
 	
-	/**
-	 * AI method: determines what card the AI will play based on the conditions of it's hand.
+	/** Called by PlayerAI.cardAction()
+	 * AI method: determines what card the AI will play based on the conditions of it's hand. 
 	 * Current AI priority: From left to right: SpecialCards > NumberCards
 	 * AI Functionality: WildCard: Changes the color to the most common color in it's own hand
 	 * @param takes an instance of the Deck, Logic, and a Card topCard
@@ -104,7 +113,7 @@ public class PlayerAI {
 	}
 	
 	
-	/**
+	/** Called by cardAI
 	 * Method that iterates through the player's hand and determines what color is the most common.
 	 * Used to determine what color to set WildCards to when the AI decides to play one
 	 * @return String color
@@ -143,5 +152,25 @@ public class PlayerAI {
 			color = 2;
 		}
 		return color;
+	}
+	
+	/** Called by controller.play();
+	 * Method that handles AI moves and calls methods that adjust the state of the game.
+	 * Calls specialFunction.specialFunc() to enact functionality for special cards. Updates cardPlayed and topCard when a correct card is played. Calls 
+	 * logic.gameState() to update playerTurn. Also handles win condition.	 * @param logic instance of type Logic
+	 * @param specialFunction instance of type SpecialFunction
+	 * @param controller instance of type Controller
+	 * @param deck instance of type Deck
+	 */
+	public void cardAction(Logic logic, SpecialFunction specialFunction, Controller controller, Deck deck ) {
+		Card aCard = cardAI(deck, logic, controller.getTopCard().get(0));
+		specialFunction.SpecialFunc(aCard, deck, logic, controller);
+		controller.setTopCard(aCard);	
+		controller.clearCardPlayed();
+		logic.gameState();
+		logic.numOfCards(controller.getPlayer1(), controller.getPlayer2(), controller.getPlayer3(), controller.getPlayer4());
+		if (hand.size() == 0) {
+			//display winning window
+		}
 	}
 }
