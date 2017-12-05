@@ -9,7 +9,7 @@ public class NumberCard extends Card{
 	public String getNumber() {
 		return number;
 	}
-	
+	@Override
 	public int getSpecval() {
 		return specval;
 	}
