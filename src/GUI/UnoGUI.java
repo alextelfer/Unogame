@@ -6,6 +6,7 @@ import Runner.Controller;
 
 import javax.swing.border.*;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -18,12 +19,16 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.GridBagConstraints;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
 public class UnoGUI extends JFrame {
@@ -32,15 +37,19 @@ public class UnoGUI extends JFrame {
 	private static final int WINDOW_WIDTH = 1000;
 	private static final int WINDOW_HEIGHT = 1000;
 
+	private JButton drawCardButton = new JButton();
 	private JButton card = new JButton();
 	private Card aCard;
 
+	private ImageIcon cardBack = new ImageIcon("src/UNO-Back.png");
+	
 	private JPanel wildPanel = new JPanel();
 	private JDialog wildCardWindow = new JDialog();
 	private JFrame gameWindow = new JFrame();
 	private JPanel playerPanel = new JPanel(new FlowLayout());
-	private JPanel centerPanel = new JPanel();
+	private JPanel centerPanel = new JPanel(new GridBagLayout());
 	
+	private GridBagConstraints gbc = new GridBagConstraints();
 	
 	
 	private Color blueCard = new Color(66, 104, 208);
@@ -56,6 +65,8 @@ public class UnoGUI extends JFrame {
 
 	public void display(Controller game, ActionListener listener) {
 		
+		gameWindow.setTitle("UNO");
+		
 		gameWindow.getContentPane().removeAll();
 		gameWindow.getContentPane().revalidate();
 		gameWindow.getContentPane().repaint();
@@ -64,32 +75,47 @@ public class UnoGUI extends JFrame {
 		
 		gameWindow.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		centerPanel = new JPanel();
-		centerPanel.setPreferredSize(new Dimension(500,200));
+		
 		JLabel player2Cards = new JLabel("Player 2 has: " + game.getPlayer2().getHand().size() + " Cards");
 		JLabel player3Cards = new JLabel("Player 3 has: " + game.getPlayer3().getHand().size() + " Cards",
 				JLabel.CENTER);
 		JLabel player4Cards = new JLabel("Player 4 has: " + game.getPlayer4().getHand().size() + " Cards");
 		gameWindow.getContentPane().add(player2Cards, BorderLayout.WEST);
-		gameWindow.getContentPane().add(player3Cards, BorderLayout.NORTH);
 		gameWindow.getContentPane().add(player4Cards, BorderLayout.EAST);
-
-		String topCardAsString = game.getTopCard().get(0).toString();
+		JPanel topPanel = new JPanel();
+		topPanel.add(player3Cards);
+		topPanel.setPreferredSize(new Dimension(1000,200));
+		gameWindow.getContentPane().add(topPanel, BorderLayout.NORTH);
+		
+		String topCardAsString = game.getTopCard().get(0).printFace();
 
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 		
 		JLabel topCardLabel = new JLabel(topCardAsString, JLabel.CENTER);
-		topCardLabel.setBounds(350, 300, 300, 150);
-		TitledBorder topCard = new TitledBorder(blackline, "The Top Card is:", TitledBorder.CENTER,
-				TitledBorder.ABOVE_TOP);
+		topCardLabel.setFont(new Font("Arial", Font.PLAIN, 25));
+		topCardLabel.setPreferredSize(new Dimension(80,100));
+		TitledBorder topCard = new TitledBorder(blackline, "Top Card");
 		topCardLabel.setBorder(topCard);
+		topCardLabel.setOpaque(true);
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.weighty = 0.1;
+		gbc.anchor = GridBagConstraints.CENTER;
+		setBackgroundColor(game.getTopCard().get(0), topCardLabel);
+		centerPanel.add(topCardLabel, gbc);
 		
-		setLabelColor(game.getTopCard().get(0), topCardLabel);
-
-		JLabel playerTurnLabel = new JLabel("it is player " + game.getPlayerTurn() + "'s turn", JLabel.CENTER);
-		playerTurnLabel.setAlignmentY(BOTTOM_ALIGNMENT);
-		gameWindow.getContentPane().add(topCardLabel);
-		gameWindow.getContentPane().add(playerTurnLabel);
+	//	centerPanel.setBorder(blackline);
+		
+		JLabel playerTurnLabel = new JLabel("It is Player " + game.getPlayerTurn() + "'s turn");
+		playerTurnLabel.setPreferredSize(new Dimension(200, 100));
+		playerTurnLabel.setBorder(blackline);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.weighty = 0.1;
+		gbc.anchor = GridBagConstraints.PAGE_START;
+		centerPanel.add(playerTurnLabel, gbc);
+		
+		gameWindow.getContentPane().add(centerPanel, BorderLayout.CENTER);
 
 		cardButton(game.getPlayer1().getHand(), listener);
 
@@ -109,11 +135,18 @@ public class UnoGUI extends JFrame {
 	public void cardButton(ArrayList<Card> playerCards, ActionListener listener) {
 
 		playerPanel = new JPanel();
-		playerPanel.setPreferredSize(new Dimension(1000,100));
+		playerPanel.setPreferredSize(new Dimension(1000,200));
 		for (int i = 0; i < playerCards.size(); i++) {
 			aCard = playerCards.get(i);
-			String aFace = aCard.toString();
+			String aFace = aCard.printFace();	
 			card = new JButton(aFace);
+			card.setPreferredSize(new Dimension(50,80));
+			if (aCard instanceof NumberCard) {
+				card.setFont(new Font("Arial", Font.PLAIN, 25));
+			} else if (aCard instanceof SpecialCard) {
+				aFace.split("(?!^)");
+				card.setFont(new Font("Arial", Font.PLAIN, 10));
+			}
 			if (aCard.getColor() == "Red ") {
 				card.setBackground(Color.RED);
 			} else if (aCard.getColor() == "Blue ") {
@@ -125,21 +158,28 @@ public class UnoGUI extends JFrame {
 			} else {
 				card.setBackground(Color.LIGHT_GRAY);
 			}
-
+			
 			String stringI = Integer.toString(i + 1);
 			card.setActionCommand(stringI);
 			card.addActionListener(listener);
 			playerPanel.add(card);
 		}
-		gameWindow.getContentPane().add(centerPanel);
-		JButton drawCardButton = new JButton("Draw Card");
-		drawCardButton.setVerticalAlignment(SwingConstants.BOTTOM);
-		drawCardButton.setBackground(Color.MAGENTA);
+		Image unoCard = cardBack.getImage();
+		Image newUnoCard = unoCard.getScaledInstance(50,80, java.awt.Image.SCALE_SMOOTH) ;
+		cardBack = new ImageIcon(newUnoCard);
+		drawCardButton = new JButton();
+		drawCardButton.setIcon(cardBack);
+		drawCardButton.setPreferredSize(new Dimension(50,80));
+		gbc.weighty = 0.1;
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		gbc.anchor = GridBagConstraints.PAGE_END;
 		drawCardButton.setActionCommand(Integer.toString(0));
 		drawCardButton.addActionListener(listener);
-		centerPanel.setLayout(null);
-		drawCardButton.setBounds(283, 613, 108, 25);
-		centerPanel.add(drawCardButton);
+		
+		centerPanel.add(drawCardButton, gbc);
+		
+		gameWindow.getContentPane().add(centerPanel, BorderLayout.CENTER);
 		gameWindow.getContentPane().add(playerPanel, BorderLayout.SOUTH);
 	}
 
@@ -184,15 +224,15 @@ public class UnoGUI extends JFrame {
 
 	}
 
-	public void setLabelColor(Card aCard, JLabel topCardLabel) {
+	public void setBackgroundColor(Card aCard, JLabel topCardLabel) {
 		if (aCard.getColor() == "Red ") {
-			topCardLabel.setForeground(Color.RED);
+			topCardLabel.setBackground(Color.RED);
 		} else if (aCard.getColor() == "Blue ") {
-			topCardLabel.setForeground(blueCard);
+			topCardLabel.setBackground(blueCard);
 		} else if (aCard.getColor() == "Yellow ") {
-			topCardLabel.setForeground(Color.YELLOW);
+			topCardLabel.setBackground(Color.YELLOW);
 		} else if (aCard.getColor() == "Green ") {
-			topCardLabel.setForeground(Color.GREEN);
+			topCardLabel.setBackground(Color.GREEN);
 		}
 	}
 
