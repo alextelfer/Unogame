@@ -5,6 +5,9 @@ import Card.*;
 import Runner.Controller;
 
 import javax.swing.border.*;
+
+import org.omg.CORBA.portable.InputStream;
+
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.BorderFactory;
@@ -21,7 +24,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-
+import java.io.File;
 import java.util.ArrayList;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -40,7 +43,7 @@ public class UnoGUI extends JFrame {
 	private JButton drawCardButton = new JButton();
 	private JButton card = new JButton();
 	private Card aCard;
-
+    // from https://opengameart.org/content/uno
 	private ImageIcon cardBack = new ImageIcon("src/UNO-Back.png");
 	
 	private JPanel wildPanel = new JPanel();
@@ -106,9 +109,10 @@ public class UnoGUI extends JFrame {
 		
 	//	centerPanel.setBorder(blackline);
 		
-		JLabel playerTurnLabel = new JLabel("It is Player " + game.getPlayerTurn() + "'s turn");
+		TitledBorder cardLegend = new TitledBorder(blackline, "Card Legend:");
+		JLabel playerTurnLabel = new JLabel("<html>D = Draw 2<br>R = Reverse<br>S = Skip<br>w = Wild<br>M = Wild Draw 4</html>");
 		playerTurnLabel.setPreferredSize(new Dimension(200, 100));
-		playerTurnLabel.setBorder(blackline);
+		playerTurnLabel.setBorder(cardLegend);
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.weighty = 0.1;
@@ -140,12 +144,12 @@ public class UnoGUI extends JFrame {
 			aCard = playerCards.get(i);
 			String aFace = aCard.printFace();	
 			card = new JButton(aFace);
+			
 			card.setPreferredSize(new Dimension(50,80));
 			if (aCard instanceof NumberCard) {
-				card.setFont(new Font("Arial", Font.PLAIN, 25));
+				card.setFont(new Font("Arial", Font.PLAIN, 20));			
 			} else if (aCard instanceof SpecialCard) {
-				aFace.split("(?!^)");
-				card.setFont(new Font("Arial", Font.PLAIN, 10));
+				card.setFont(new Font("Arial", Font.PLAIN, 19));
 			}
 			if (aCard.getColor() == "Red ") {
 				card.setBackground(Color.RED);
@@ -170,7 +174,6 @@ public class UnoGUI extends JFrame {
 		drawCardButton = new JButton();
 		drawCardButton.setIcon(cardBack);
 		drawCardButton.setPreferredSize(new Dimension(50,80));
-		gbc.weighty = 0.1;
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		gbc.anchor = GridBagConstraints.PAGE_END;
