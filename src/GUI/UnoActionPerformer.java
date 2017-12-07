@@ -40,7 +40,7 @@ public class UnoActionPerformer implements ActionListener{
 		else {
 			int cardIndex = Integer.parseInt(event.getActionCommand());
 			this.controller.play(cardIndex); //is supposed to have the card index passed onto the play method
-//			gui.display(controller, this);
+			gui.display(controller, this);
 		}
 		
 	}

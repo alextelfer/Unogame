@@ -52,6 +52,11 @@ public class UnoGUI extends JFrame {
 	private JPanel playerPanel = new JPanel(new FlowLayout());
 	private JPanel centerPanel = new JPanel(new GridBagLayout());
 	
+	JButton redColor = new JButton("RED");
+	JButton yellowColor = new JButton("YELLOW");
+	JButton greenColor = new JButton("GREEN");
+	JButton blueColor = new JButton("BLUE");
+	
 	JLabel topCardLabel = new JLabel("test", JLabel.CENTER);
 	Border blackline = BorderFactory.createLineBorder(Color.black);
 
@@ -192,43 +197,40 @@ public class UnoGUI extends JFrame {
 	}
 
 	public void clearWildCardButtons() {
-		wildCardWindow.dispose();
+		wildCardWindow.getContentPane().removeAll();
+		wildCardWindow.getContentPane().revalidate();
+		wildCardWindow.setVisible(false);
 	}
 
 	public void wildCardButtons(ActionListener listener) {
-		wildCardWindow.getContentPane().removeAll();
-		wildCardWindow.getContentPane().revalidate();
-		wildCardWindow.getContentPane().repaint();
-		wildCardWindow.setModal(true);
 		wildCardWindow.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		JPanel promptPanel = new JPanel();
 		JLabel prompt = new JLabel("Pick a Color");
 		prompt.setAlignmentY(CENTER_ALIGNMENT);
 		promptPanel.add(prompt);
 		wildCardWindow.getContentPane().add(promptPanel, BorderLayout.NORTH);
-		JButton redColor = new JButton("RED");
 		redColor.setActionCommand("RED");
 		redColor.addActionListener(listener);
 		redColor.setBackground(Color.RED);
 		wildPanel.add(redColor);
-		JButton blueColor = new JButton("BLUE");
 		blueColor.setActionCommand("BLUE");
 		blueColor.addActionListener(listener);
 		blueColor.setBackground(Color.BLUE);
 		wildPanel.add(blueColor);
-		JButton yellowColor = new JButton("YELLOW");
 		yellowColor.setActionCommand("YELLOW");
 		yellowColor.addActionListener(listener);
 		yellowColor.setBackground(Color.YELLOW);
 		wildPanel.add(yellowColor);
-		JButton greenColor = new JButton("GREEN");
 		greenColor.setActionCommand("GREEN");
 		greenColor.addActionListener(listener);
 		greenColor.setBackground(Color.GREEN);
 		wildPanel.add(greenColor);
 		wildCardWindow.getContentPane().add(wildPanel, BorderLayout.CENTER);
 		wildCardWindow.pack();
+		wildCardWindow.setModal(true);
 		wildCardWindow.setVisible(true);
+		wildCardWindow.getContentPane().repaint();
+
 
 	}
 
