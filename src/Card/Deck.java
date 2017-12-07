@@ -18,11 +18,11 @@ public class Deck {
 	 *  and 1 Wild Draw 4 for each color
 	 */
 	public Deck(){
-		// Creating Zero number cards 
+		/** Creating Zero number cards */
 		for (int colval = 0; colval <= 3; colval++ ) {
 			unoDeck.add(new NumberCard(colval, 0));
 		}
-		// Creating 1-9 number cards 
+		/** Creating 1-9 number cards */
 		for (int colval = 0; colval <= 3; colval++ ) {
 			for (int numval = 1; numval <= 9; numval++) {
 				for (int i = 0; i < 2; i++) {
@@ -30,14 +30,14 @@ public class Deck {
 				}
 			}
 		}
-		// Creating Special cards: Skip, Reverse, Draw 2 
+		/** Creating Special cards: Skip, Reverse, Draw 2 */
 		for (int colval = 0; colval <= 3; colval++ ) {
 			for (int specval = 0; specval <= 2; specval++) {
 				for (int j = 0; j < 2; j++) {
 					unoDeck.add(new SpecialCard(colval, specval));
 				}
 			}	
-		// Creating Special cards: Wild and Wild Draw 4 
+		/** Creating Special cards: Wild and Wild Draw 4 */
 		}
 		for (int colval = 0; colval <= 3; colval++ ) {
 			for (int specval = 3; specval <= 4; specval++) {

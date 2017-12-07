@@ -151,13 +151,6 @@ public class PlayerAI {
 		logic.gameState();
 		logic.numOfCards(controller.getPlayer1(), controller.getPlayer2(), controller.getPlayer3(), controller.getPlayer4());
 		controller.refreshDisplay();
-		try {
-			System.out.println("Sleeping");
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 		if (hand.size() == 0) {
 			//display winning window

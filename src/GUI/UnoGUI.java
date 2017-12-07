@@ -52,11 +52,54 @@ public class UnoGUI extends JFrame {
 	private JPanel playerPanel = new JPanel(new FlowLayout());
 	private JPanel centerPanel = new JPanel(new GridBagLayout());
 	
+	JLabel topCardLabel = new JLabel("test", JLabel.CENTER);
+	Border blackline = BorderFactory.createLineBorder(Color.black);
+
+	
 	private GridBagConstraints gbc = new GridBagConstraints();
 	
 	
 	private Color blueCard = new Color(66, 104, 208);
 
+	public UnoGUI(ActionListener listener) {
+		topCardLabel.setFont(new Font("Arial", Font.PLAIN, 25));
+		topCardLabel.setPreferredSize(new Dimension(80,100));
+		TitledBorder topCard = new TitledBorder(blackline, "Top Card");
+		topCardLabel.setBorder(topCard);
+		topCardLabel.setOpaque(true);
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.weighty = 0.1;
+		gbc.anchor = GridBagConstraints.CENTER;
+		centerPanel.add(topCardLabel, gbc);
+
+		TitledBorder cardLegend = new TitledBorder(blackline, "Card Legend:");
+		JLabel playerTurnLabel = new JLabel("<html>D = Draw 2<br>R = Reverse<br>S = Skip<br>w = Wild<br>M = Wild Draw 4</html>");
+		playerTurnLabel.setPreferredSize(new Dimension(200, 100));
+		playerTurnLabel.setBorder(cardLegend);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.weighty = 0.1;
+		gbc.anchor = GridBagConstraints.PAGE_START;
+		centerPanel.add(playerTurnLabel, gbc);
+
+		Image unoCard = cardBack.getImage();
+		Image newUnoCard = unoCard.getScaledInstance(50,80, java.awt.Image.SCALE_SMOOTH) ;
+		cardBack = new ImageIcon(newUnoCard);
+
+		drawCardButton = new JButton();
+		drawCardButton.setIcon(cardBack);
+		drawCardButton.setPreferredSize(new Dimension(50,80));
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		gbc.anchor = GridBagConstraints.PAGE_END;
+		drawCardButton.setActionCommand(Integer.toString(0));
+		drawCardButton.addActionListener(listener);
+		
+		centerPanel.add(drawCardButton, gbc);
+		gameWindow.setVisible(true);
+	}
+	
 	/**
 	 * Creates display window and displays the topCard. Calls cardButton to display
 	 * player hands
@@ -67,12 +110,12 @@ public class UnoGUI extends JFrame {
 	 */
 
 	public void display(Controller game, ActionListener listener) {
-		
+		System.out.println("IN DISPLAY **********************");
 		gameWindow.setTitle("UNO");
 		
 		gameWindow.getContentPane().removeAll();
 		gameWindow.getContentPane().revalidate();
-		gameWindow.getContentPane().repaint();
+
 
 		gameWindow.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		
@@ -92,39 +135,14 @@ public class UnoGUI extends JFrame {
 		
 		String topCardAsString = game.getTopCard().get(0).printFace();
 
-		Border blackline = BorderFactory.createLineBorder(Color.black);
-		
-		JLabel topCardLabel = new JLabel(topCardAsString, JLabel.CENTER);
-		topCardLabel.setFont(new Font("Arial", Font.PLAIN, 25));
-		topCardLabel.setPreferredSize(new Dimension(80,100));
-		TitledBorder topCard = new TitledBorder(blackline, "Top Card");
-		topCardLabel.setBorder(topCard);
-		topCardLabel.setOpaque(true);
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		gbc.weighty = 0.1;
-		gbc.anchor = GridBagConstraints.CENTER;
+		topCardLabel.setText(topCardAsString);
 		setBackgroundColor(game.getTopCard().get(0), topCardLabel);
-		centerPanel.add(topCardLabel, gbc);
 		
 	//	centerPanel.setBorder(blackline);
-		
-		TitledBorder cardLegend = new TitledBorder(blackline, "Card Legend:");
-		JLabel playerTurnLabel = new JLabel("<html>D = Draw 2<br>R = Reverse<br>S = Skip<br>w = Wild<br>M = Wild Draw 4</html>");
-		playerTurnLabel.setPreferredSize(new Dimension(200, 100));
-		playerTurnLabel.setBorder(cardLegend);
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		gbc.weighty = 0.1;
-		gbc.anchor = GridBagConstraints.PAGE_START;
-		centerPanel.add(playerTurnLabel, gbc);
-		
-		gameWindow.getContentPane().add(centerPanel, BorderLayout.CENTER);
-
+				
 		cardButton(game.getPlayer1().getHand(), listener);
-
-		gameWindow.setVisible(true);
-
+		gameWindow.getContentPane().add(centerPanel, BorderLayout.CENTER);
+		gameWindow.getContentPane().repaint();
 	
 		
 	}
@@ -168,21 +186,8 @@ public class UnoGUI extends JFrame {
 			card.addActionListener(listener);
 			playerPanel.add(card);
 		}
-		Image unoCard = cardBack.getImage();
-		Image newUnoCard = unoCard.getScaledInstance(50,80, java.awt.Image.SCALE_SMOOTH) ;
-		cardBack = new ImageIcon(newUnoCard);
-		drawCardButton = new JButton();
-		drawCardButton.setIcon(cardBack);
-		drawCardButton.setPreferredSize(new Dimension(50,80));
-		gbc.gridx = 0;
-		gbc.gridy = 2;
-		gbc.anchor = GridBagConstraints.PAGE_END;
-		drawCardButton.setActionCommand(Integer.toString(0));
-		drawCardButton.addActionListener(listener);
 		
-		centerPanel.add(drawCardButton, gbc);
-		
-		gameWindow.getContentPane().add(centerPanel, BorderLayout.CENTER);
+		//gameWindow.getContentPane().add(centerPanel, BorderLayout.CENTER);
 		gameWindow.getContentPane().add(playerPanel, BorderLayout.SOUTH);
 	}
 

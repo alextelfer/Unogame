@@ -1,5 +1,8 @@
 package Runner;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.Timer;
 
 import Card.Card;
 import Card.Deck;
@@ -133,26 +136,33 @@ public class Controller {
 	 * and the player that wins the game
 	 */
 	public void play(int cardIndex) {
-		while (true) {
+	
 			if (logic.getPlayerTurn() == 1) {
 				System.out.println("\n\n\n\n\n\n\n" + "It is now Player 1's Turn" + "\n");
 				player1.cardAction(cardIndex, logic, specialFunction, this, deck);
+				actions.getGUI().display(this, actions);
 			}
-			if (logic.getPlayerTurn() == 2) {
+			else if (logic.getPlayerTurn() == 2) {
 				System.out.println("\n\n\n\n\n\n\n" + "It is now Player 2's Turn" + "\n");
 				player2.cardAction(logic, specialFunction, this, deck);
+
 			}
-			if (logic.getPlayerTurn() == 3) {
+			else if (logic.getPlayerTurn() == 3) {
 				System.out.println("\n\n\n\n\n\n\n" + "It is now Player 3's Turn" + "\n");
 				player3.cardAction(logic, specialFunction, this, deck);
 			}
-			if (logic.getPlayerTurn() == 4) {
+			else if (logic.getPlayerTurn() == 4) {
 				System.out.println("\n\n\n\n\n\n\n" + "It is now Player 4's Turn" + "\n");
 				player4.cardAction(logic, specialFunction, this, deck);
 			}
-			if (logic.getPlayerTurn() == 1){
-				break;
-			}
+		if(logic.getPlayerTurn() != 1) {
+			ActionListener taskPerformer = new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					play(cardIndex);
+				}
+			};
+			new Timer (3000, taskPerformer).start();
+			
 		}
 	}
 	

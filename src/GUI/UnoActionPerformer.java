@@ -14,10 +14,15 @@ public class UnoActionPerformer implements ActionListener{
 	*/
 	public UnoActionPerformer(Controller controller){
 		this.controller = controller;
-		gui = new UnoGUI();
+		gui = new UnoGUI(this);
 		gui.display(controller, this);
 	}
 	
+	
+	/**
+	 * Getter for an instance of UnoGUI
+	 * @return an instance of UnoGUI for creating the graphical aspect of the game
+	 */
 	public UnoGUI getGUI() {
 		return gui;
 	}
@@ -25,7 +30,7 @@ public class UnoActionPerformer implements ActionListener{
 	/**
 	*Action listener, recieves button input from the user and calls play() from the Uno class to update the 
 	*state of the game based on what button was pressed
-	@param an ActionEvent
+	@param an ActionEvent (a button press) in order to carry out actions accordingly 
 	*/
 	public void actionPerformed(ActionEvent event){
 		if (event.getActionCommand().equals("YELLOW") || event.getActionCommand().equals("GREEN") || event.getActionCommand().equals("BLUE") || event.getActionCommand().equals("RED")) {
@@ -35,7 +40,7 @@ public class UnoActionPerformer implements ActionListener{
 		else {
 			int cardIndex = Integer.parseInt(event.getActionCommand());
 			this.controller.play(cardIndex); //is supposed to have the card index passed onto the play method
-			gui.display(controller, this);
+//			gui.display(controller, this);
 		}
 		
 	}
