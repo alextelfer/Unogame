@@ -5,6 +5,7 @@ public abstract class Card {
 	private String color;
 	public int colval;
 
+	public abstract String printFace();
 	public abstract String getNumber();
 	public abstract int getSpecval();
 	

@@ -34,6 +34,11 @@ public class NumberCard extends Card{
 		this.specval = num;
 		this.number = String.valueOf(specval);
 	}
+	@Override
+	public String printFace() {
+		
+		return this.number;
+	}
 
 	
 }

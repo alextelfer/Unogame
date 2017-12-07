@@ -69,4 +69,21 @@ public class SpecialCard extends Card{
 	
 	}
 
+	@Override
+	public String printFace() {
+		String cardFace = this.number;
+		if (specval == 0) {
+			cardFace = "D";
+		} else if (specval == 1) {
+			cardFace = "R";
+		} else if (specval == 2) {
+			cardFace = "S";
+		} else if (specval == 3) {
+			cardFace = "w";
+		} else if (specval == 4) {
+			cardFace = "M";
+		}
+		return cardFace;
+	}
+
 }
