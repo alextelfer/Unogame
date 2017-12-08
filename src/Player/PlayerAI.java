@@ -16,9 +16,7 @@ import Runner.Controller;
 public class PlayerAI {
 	private ArrayList <Card> hand = new ArrayList <Card>();
 	
-	public static final int DEFAULT_HAND_SIZE = 7;
-	public static final int WILD_ARTIFICIAL_CARD_SPECVAL = -1;
-	public static final int WILD_DRAW4_ARTIFICIAL_CARD_SPECVAL = -2;
+	public static final int DEFAULT_AI_HAND_SIZE = 7;
 	
 	/*
 	 * INTENTIONAL PRIVACY LEAKS: All references relating to hand ArrayLists and card objects within hand ArrayLists must be shared. Various classes edit/create
@@ -62,7 +60,7 @@ public class PlayerAI {
 	 * @param deck of type Deck
 	 */
 	public void initialize(Deck deck) {
-		deck.draw(DEFAULT_HAND_SIZE,hand);
+		deck.draw(DEFAULT_AI_HAND_SIZE,hand);
 	}
 	
 	/**
@@ -108,10 +106,10 @@ public class PlayerAI {
 		}
 		removeCard(cardPlayed);
 		if (cardPlayed.getNumber().equals("Wild")){
-			cardPlayed = new SpecialCard(handEvaluator(), WILD_ARTIFICIAL_CARD_SPECVAL);
+			cardPlayed = new SpecialCard(handEvaluator(), SpecialFunction.WILD_ARTIFICIAL_CARD_SPECVAL);
 		}
 		if (cardPlayed.getNumber().equals("Wild Draw 4")){
-			cardPlayed = new SpecialCard(handEvaluator(), WILD_DRAW4_ARTIFICIAL_CARD_SPECVAL);
+			cardPlayed = new SpecialCard(handEvaluator(), SpecialFunction.WILD_DRAW4_ARTIFICIAL_CARD_SPECVAL);
 		}
 		return cardPlayed;
 	}

@@ -48,10 +48,10 @@ public class SpecialCard extends Card{
 		} else if (specval == 2) {
 			number = "Skip";
 		// AI sets specval to -1 when it creates an artificial card after playing a wild
-		} else if (specval == -1) {
+		} else if (specval == SpecialFunction.WILD_ARTIFICIAL_CARD_SPECVAL) {
 			number = "";
 		// AI sets specval to -2 when it creates an artificial card after playing a wild draw 4
-		} else if (specval == -2) {
+		} else if (specval == SpecialFunction.WILD_DRAW4_ARTIFICIAL_CARD_SPECVAL) {
 			number = "";
 		}
 	}

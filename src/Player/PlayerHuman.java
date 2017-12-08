@@ -15,7 +15,7 @@ import Runner.Controller;
 public class PlayerHuman {
 	private ArrayList <Card> hand = new ArrayList <Card>();
 	
-	public static final int DEFAULT_HAND_SIZE = 7;
+	public static final int DEFAULT_HUMAN_HAND_SIZE = 7;
 	
 	/*
 	 * INTENTIONAL PRIVACY LEAKS: All references relating to hand ArrayLists and card objects within hand ArrayLists must be shared. Various classes edit/create
@@ -41,7 +41,7 @@ public class PlayerHuman {
 	 * @param deck of type Deck
 	 */
 	public void initialize(Deck deck) {
-		deck.draw(DEFAULT_HAND_SIZE ,this.hand);
+		deck.draw(DEFAULT_HUMAN_HAND_SIZE ,this.hand);
 	}
 	
 	//PRIVACY LEAK: FIX LATER, REMOVE() USES THIS GETTER TO EDIT
