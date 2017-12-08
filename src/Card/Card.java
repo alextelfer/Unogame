@@ -31,7 +31,7 @@ public abstract class Card {
 	}
 	
 	public String toString(){
-		return color;
+		return color + " ";
 	}
 	
 	/** Method for creating the color portion of cards
@@ -40,13 +40,13 @@ public abstract class Card {
 	 */
 	public String cardColor(int colval) {
 		if (colval == 0) {
-			color = "Red ";
+			color = "Red";
 		} else if (colval == 1) {
-			color = "Blue ";
+			color = "Blue";
 		} else if (colval == 2) {
-			color = "Yellow ";
+			color = "Yellow";
 		} else if (colval == 3) {
-			color = "Green ";
+			color = "Green";
 		} else if (colval == 5) {
 			color = "";
 		}

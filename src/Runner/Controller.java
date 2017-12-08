@@ -19,7 +19,7 @@ import Player.PlayerHuman;
  */
 public class Controller {
 	
-	/**
+	/*
 	 * INTENTIONAL PRIVACY LEAKS: All references relating to hand ArrayLists and card objects within hand ArrayLists must be shared. Various classes edit/create
 	 * artificial card objects and remove/add new card objects so they must be provided with the instance itself.
 	 */
@@ -114,7 +114,6 @@ public class Controller {
 		discardPile.clear();
 	}
 
-	
 	/**Getter of type arrayList<Card> to get the card played by the user
 	 * @return the arrayList <Card> of the cardPLayed by the user 
 	 * INTENTIONAL PRIVACY LEAK: creates a new list but references to individual cards must be shared
@@ -185,7 +184,6 @@ public class Controller {
 		player3.initialize(deck);
 		player4.initialize(deck);
 		actions = new UnoActionPerformer(this);
-
 	}
 
 	/** Called by UnoActionPerformer.actionPerformed() (Called after every button press)
@@ -211,7 +209,6 @@ public class Controller {
 				player4.cardAction(logic, specialFunction, this, deck);
 			}
 		} while (logic.getPlayerTurn() != 1);
-		
 	}
 	
 	/** Called by SpecialFunction.specialFunc() whenever a wild card is played

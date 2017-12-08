@@ -16,12 +16,9 @@ import Runner.Controller;
 public class PlayerAI {
 	private ArrayList <Card> hand = new ArrayList <Card>();
 	
-	public static final int DEFAULT_HAND_SIZE = 7;
+	public static final int DEFAULT_AI_HAND_SIZE = 7;
 	
-	public static final int WILD_ARTIFICIAL_CARD_SPECVAL = -1;
-	public static final int WILD_DRAW4_ARTIFICIAL_CARD_SPECVAL = -2;
-	
-	/**
+	/*
 	 * INTENTIONAL PRIVACY LEAKS: All references relating to hand ArrayLists and card objects within hand ArrayLists must be shared. Various classes edit/create
 	 * artificial card objects and remove/add new card objects so they must be provided with the instance itself.
 	 */
@@ -30,7 +27,6 @@ public class PlayerAI {
 	 * Default constructor for the PlayerAI Class
 	 */
 	public PlayerAI() {
-
 	}
 	
 	/**
@@ -64,7 +60,7 @@ public class PlayerAI {
 	 * @param deck of type Deck
 	 */
 	public void initialize(Deck deck) {
-		deck.draw(DEFAULT_HAND_SIZE,hand);
+		deck.draw(DEFAULT_AI_HAND_SIZE,hand);
 	}
 	
 	/**
@@ -110,14 +106,13 @@ public class PlayerAI {
 		}
 		removeCard(cardPlayed);
 		if (cardPlayed.getNumber().equals("Wild")){
-			cardPlayed = new SpecialCard(handEvaluator(), WILD_ARTIFICIAL_CARD_SPECVAL);
+			cardPlayed = new SpecialCard(handEvaluator(), SpecialFunction.WILD_ARTIFICIAL_CARD_SPECVAL);
 		}
 		if (cardPlayed.getNumber().equals("Wild Draw 4")){
-			cardPlayed = new SpecialCard(handEvaluator(), WILD_DRAW4_ARTIFICIAL_CARD_SPECVAL);
+			cardPlayed = new SpecialCard(handEvaluator(), SpecialFunction.WILD_DRAW4_ARTIFICIAL_CARD_SPECVAL);
 		}
 		return cardPlayed;
 	}
-	
 	
 	/** Called by cardAI
 	 * Method that iterates through the player's hand and determines what color is the most common.
@@ -131,16 +126,16 @@ public class PlayerAI {
 		int numOfYellows = 0;
 		int color = 0;
 		for (Card aCard : hand) {
-			if (aCard.getColor().equals("Red ")){
+			if (aCard.getColor().equals("Red")){
 				numOfReds += 1;
 			}
-			else if (aCard.getColor().equals("Blue ")){
+			else if (aCard.getColor().equals("Blue")){
 				numOfBlues += 1;
 			}
-			else if (aCard.getColor().equals("Green ")){
+			else if (aCard.getColor().equals("Green")){
 				numOfGreens += 1;
 			}
-			else if (aCard.getColor().equals("Yellow ")){
+			else if (aCard.getColor().equals("Yellow")){
 				numOfYellows += 1;
 			}
 		}

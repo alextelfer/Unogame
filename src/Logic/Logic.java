@@ -3,6 +3,8 @@ import Card.Card;
 import Card.Deck;
 import Player.PlayerAI;
 import Player.PlayerHuman;
+import Runner.Controller;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -58,6 +60,22 @@ public class Logic {
 		}
 		System.out.println(valid);
 		return valid;
+	}
+	
+	/**Called by SpecialFunc after a successful card is played
+	 * Method is used to increment player turns after every successful card is played. Skips, Draw 4s and Draw 2s set the adjustment to 2 (skipping a players turn)
+	 * @param int adjustment(1 for regular cards,wilds and reverses. 2 for skips, draw 4s and draw 2s)
+	 * @param controller instance of Controller
+	 * @param logic instance of Logic
+	 */
+	public void turnAdjuster(int adjustment, Controller controller,Logic logic) {
+		boolean turn = logic.isClockwise();
+		int playerTurn = logic.getPlayerTurn();
+		if (turn) {
+			logic.setPlayerTurn(playerTurn + adjustment);
+		} else {
+			logic.setPlayerTurn(playerTurn - adjustment);
+		}
 	}
 	
 	/** Method that sets the playerTurn according to the order of play

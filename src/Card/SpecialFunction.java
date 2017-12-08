@@ -10,43 +10,40 @@ public class SpecialFunction {
 	public int specval;
 	
 	private ArrayList<Card>nextPlayer = new ArrayList<Card>();
+	public static final int WILD_ARTIFICIAL_CARD_SPECVAL = -1;
+	public static final int WILD_DRAW4_ARTIFICIAL_CARD_SPECVAL = -2;
 
 	/** Method that implements all the special card functionality
 	 * @param cardPlayed
-	 * @param deck
-	 * @param logic
-	 * @param controller
+	 * @param deck instance of Deck
+	 * @param logic instance of Logic
+	 * @param controller instance of Controller
 	 */
 	public void SpecialFunc(Card cardPlayed, Deck deck, Logic logic, Controller controller) {
-		/** Draw 2 card functionality */
 		if (cardPlayed.getNumber().equals("Draw 2")) {
 			playerCheck(logic,controller);
 			deck.draw(2, nextPlayer);
-			turnAdjuster(2,controller,logic);
-		/** Reverse card functionality */
+			logic.turnAdjuster(2,controller,logic);
 		} else if (cardPlayed.getNumber().equals("Reverse")) {
-			turnAdjuster(1,controller,logic);
+			logic.turnAdjuster(1,controller,logic);
 			logic.setClockwise(!logic.isClockwise());
-		/** Skip card functionality */
 		} else if (cardPlayed.getNumber().equals("Skip")) {
-			turnAdjuster(2,controller,logic);
-		/** Wild card functionality */
-		} else if (cardPlayed.getNumber().equals("Wild") || cardPlayed.getSpecval() == -1) { //-1 specval: variable to determine wildcards for AI
+			logic.turnAdjuster(2,controller,logic);
+		} else if (cardPlayed.getNumber().equals("Wild") || cardPlayed.getSpecval() == WILD_ARTIFICIAL_CARD_SPECVAL) {
 			if (logic.getPlayerTurn() == 1) {
 				WildCard(controller);
 			}
-			turnAdjuster(1,controller,logic);
-		/** Wild Draw 4 functionality */
-		} else if (cardPlayed.getNumber().equals("Wild Draw 4") || cardPlayed.getSpecval() == -2) {//-2 specval: variable to determine wild draw 4 for AI
+			logic.turnAdjuster(1,controller,logic);
+		} else if (cardPlayed.getNumber().equals("Wild Draw 4") || cardPlayed.getSpecval() == WILD_DRAW4_ARTIFICIAL_CARD_SPECVAL) {
 			if (logic.getPlayerTurn() == 1) {
 				WildCard(controller);
 			}
 			playerCheck(logic, controller);
 			deck.draw(4, nextPlayer);
-			turnAdjuster(2,controller,logic);
+			logic.turnAdjuster(2,controller,logic);
 		}
 		else {
-			turnAdjuster(1,controller,logic);
+			logic.turnAdjuster(1,controller,logic);
 		}
 	}
 	
@@ -56,34 +53,18 @@ public class SpecialFunction {
 	public void WildCard(Controller controller) {
 		controller.runWildGUI();
 		String color = controller.getColorWild();
-		if (color == "RED") {
+		if (color == "Red") {
 			SpecialCard scard = new SpecialCard(0, -1);
 			controller.setCardPlayed(scard);
-		} else if (color == "BLUE") {		
+		} else if (color == "Blue") {		
 			SpecialCard scard = new SpecialCard(1, -1);
 			controller.setCardPlayed(scard);
-		} else if (color == "YELLOW") {		
+		} else if (color == "Yellow") {		
 			SpecialCard scard = new SpecialCard(2, -1);
 			controller.setCardPlayed(scard);
-		} else if (color == "GREEN") {		
+		} else if (color == "Green") {		
 			SpecialCard scard = new SpecialCard(3, -1);
 			controller.setCardPlayed(scard);
-		}
-	}
-	
-	/**Called by SpecialFunc after a successful card is played
-	 * Method is used to increment player turns after every successful card is played. Skips, Draw 4s and Draw 2s set the adjustment to 2 (skipping a players turn)
-	 * @param int adjustment(1 for regular cards,wilds and reverses. 2 for skips, draw 4s and draw 2s)
-	 * @param controller instance of Controller
-	 * @param logic instance of Logic
-	 */
-	public void turnAdjuster(int adjustment, Controller controller,Logic logic) {
-		boolean turn = logic.isClockwise();
-		int playerTurn = logic.getPlayerTurn();
-		if (turn) {
-			logic.setPlayerTurn(playerTurn + adjustment);
-		} else {
-			logic.setPlayerTurn(playerTurn - adjustment);
 		}
 	}
 	
