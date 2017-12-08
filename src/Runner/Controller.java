@@ -6,6 +6,7 @@ import javax.swing.Timer;
 
 import Card.Card;
 import Card.Deck;
+import Card.SpecialCard;
 import Card.SpecialFunction;
 import GUI.UnoActionPerformer;
 import GUI.UnoGUI;
@@ -86,6 +87,7 @@ public class Controller {
 	 * @param aTopCard object of type Card to set the new topcard in the game
 	 */
 	public void setTopCard(Card aTopCard) {
+
 		addDiscardPile(aTopCard);
 		topCard.clear();
 		topCard.add(aTopCard);
@@ -104,6 +106,14 @@ public class Controller {
 	 * @param Card topCard
 	 */
 	public void addDiscardPile(Card topCard){
+		//recreates a new wild card from an artificial card
+		if (topCard.getSpecval() == SpecialFunction.WILD_ARTIFICIAL_CARD_SPECVAL) {
+			topCard = new SpecialCard(3);
+		}
+		//recreates a new wild draw 4 from an artificial card
+		else if (topCard.getSpecval() == SpecialFunction.WILD_DRAW4_ARTIFICIAL_CARD_SPECVAL) {
+			topCard = new SpecialCard(4);
+		}
 		discardPile.add(topCard);
 	}
 	

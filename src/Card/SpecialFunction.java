@@ -10,6 +10,11 @@ public class SpecialFunction {
 	public int specval;
 	
 	private ArrayList<Card>nextPlayer = new ArrayList<Card>();
+	
+	/**
+	 *These constants are used when a wildcard is played and the user or AI selects a color to change the topCard to.
+	 *This creates a new card with no number, a color of whatever the user specifies, and a hidden specval as specified
+	 */
 	public static final int WILD_ARTIFICIAL_CARD_SPECVAL = -1;
 	public static final int WILD_DRAW4_ARTIFICIAL_CARD_SPECVAL = -2;
 
