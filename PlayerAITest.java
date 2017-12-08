@@ -1,3 +1,5 @@
+package Player;
+
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -13,7 +15,8 @@ public class PlayerAITest {
 
 	@Test
 	public void test_wild() {
-		Deck deck = new Deck();
+		Controller controller = new Controller();
+		Deck deck = new Deck(controller);
 		Logic logic = new Logic();
 		PlayerAI ai = new PlayerAI();
 		Card topCard = new NumberCard(1,2); //blue 2
@@ -28,12 +31,13 @@ public class PlayerAITest {
 		hand.add(c1);hand.add(c2);hand.add(c3);hand.add(c4);hand.add(c5);hand.add(c6);hand.add(c7);
 		ai.setHand(hand);
 		Card cardPlayed= ai.cardAI(deck, logic, topCard);
-		assertEquals("TopCard: Blue 2. Expecting AI to play Wild and set topCard to green (green is the most common in the hand)","Green ",cardPlayed.getColor());
+		assertEquals("TopCard: Blue 2. Expecting AI to play Wild and set topCard to green (green is the most common in the hand)","Green",cardPlayed.getColor());
 	}
 	
 	@Test
 	public void test_wild2() {
-		Deck deck = new Deck();
+		Controller controller = new Controller();
+		Deck deck = new Deck(controller);
 		Logic logic = new Logic();
 		PlayerAI ai = new PlayerAI();
 		Card topCard = new NumberCard(1,2); //blue 2
@@ -48,12 +52,13 @@ public class PlayerAITest {
 		hand.add(c1);hand.add(c2);hand.add(c3);hand.add(c4);hand.add(c5);hand.add(c6);hand.add(c7);
 		ai.setHand(hand);
 		Card cardPlayed= ai.cardAI(deck, logic, topCard);
-		assertEquals("TopCard: Blue 2. Expecting AI to play Wild and set topCard to Red (Red is tied for the most common in the hand, should default to red)","Red ",cardPlayed.getColor());
+		assertEquals("TopCard: Blue 2. Expecting AI to play Wild and set topCard to Red (Red is tied for the most common in the hand, should default to red)","Red",cardPlayed.getColor());
 	}
 	
 	@Test
 	public void test_Special() {
-		Deck deck = new Deck();
+		Controller controller = new Controller();
+		Deck deck = new Deck(controller);
 		Logic logic = new Logic();
 		PlayerAI ai = new PlayerAI();
 		Card topCard = new NumberCard(2,4); //Yellow 4
@@ -73,7 +78,8 @@ public class PlayerAITest {
 	
 	@Test
 	public void no_valid_cards() {
-		Deck deck = new Deck();
+		Controller controller = new Controller();
+		Deck deck = new Deck(controller);
 		Logic logic = new Logic();
 		PlayerAI ai = new PlayerAI();
 		Card topCard = new NumberCard(2,4); //Yellow 4
