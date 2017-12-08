@@ -15,7 +15,7 @@ import Runner.Controller;
 public class PlayerHuman {
 	private ArrayList <Card> hand = new ArrayList <Card>();
 	
-	public static final int DEFAULT_HUMAN_HAND_SIZE = 7;
+	private static final int DEFAULT_HUMAN_HAND_SIZE = 7;
 	
 	/*
 	 * INTENTIONAL PRIVACY LEAKS: All references relating to hand ArrayLists and card objects within hand ArrayLists must be shared. Various classes edit/create

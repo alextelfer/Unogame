@@ -25,7 +25,7 @@ public class SpecialFunction {
 			deck.draw(2, nextPlayer);
 			logic.turnAdjuster(2,controller,logic);
 		} else if (cardPlayed.getNumber().equals("Reverse")) {
-			logic.turnAdjuster(1,controller,logic);
+			logic.turnAdjuster(-1,controller,logic);
 			logic.setClockwise(!logic.isClockwise());
 		} else if (cardPlayed.getNumber().equals("Skip")) {
 			logic.turnAdjuster(2,controller,logic);

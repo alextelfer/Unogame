@@ -63,8 +63,8 @@ public class Logic {
 	}
 	
 	/**Called by SpecialFunc after a successful card is played
-	 * Method is used to increment player turns after every successful card is played. Skips, Draw 4s and Draw 2s set the adjustment to 2 (skipping a players turn)
-	 * @param int adjustment(1 for regular cards,wilds and reverses. 2 for skips, draw 4s and draw 2s)
+	 * Method is used to increment player turns after every successful card is played.
+	 * @param int adjustment(1 for regular cards and wilds. 2 for skips, draw 4s and draw 2s, -1 for reverses)
 	 * @param controller instance of Controller
 	 * @param logic instance of Logic
 	 */

@@ -1,5 +1,6 @@
 package Player;
 import java.util.ArrayList;
+import java.util.Date;
 
 import Card.Card;
 import Card.Deck;
@@ -16,7 +17,7 @@ import Runner.Controller;
 public class PlayerAI {
 	private ArrayList <Card> hand = new ArrayList <Card>();
 	
-	public static final int DEFAULT_AI_HAND_SIZE = 7;
+	private static final int DEFAULT_AI_HAND_SIZE = 7;
 	
 	/*
 	 * INTENTIONAL PRIVACY LEAKS: All references relating to hand ArrayLists and card objects within hand ArrayLists must be shared. Various classes edit/create
