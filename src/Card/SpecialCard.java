@@ -3,7 +3,7 @@ package Card;
 public class SpecialCard extends Card{
 
 	private String number;
-	public int specval;
+	private int specval;
 	
 	/**Getter for specval
 	 * @return a reference of specval
@@ -47,8 +47,10 @@ public class SpecialCard extends Card{
 			number = "Reverse";
 		} else if (specval == 2) {
 			number = "Skip";
+		// AI sets specval to -1 when it creates an artificial card after playing a wild
 		} else if (specval == -1) {
 			number = "";
+		// AI sets specval to -2 when it creates an artificial card after playing a wild draw 4
 		} else if (specval == -2) {
 			number = "";
 		}

@@ -96,7 +96,7 @@ public class Logic {
 	
 	/** Method that makes the player type "Uno" or "uno" to win
 	 * @param playerhand of type ArrayList<Card>
-	 */
+	 * Commented out for GUI version
 	public void lastCard(ArrayList<Card> playerhand) {
 		Scanner keyboard = new Scanner(System.in);
 		String gameComplete = "  ";
@@ -110,6 +110,7 @@ public class Logic {
 			}
 		}
 	}
+	*/
 }
 	
 	

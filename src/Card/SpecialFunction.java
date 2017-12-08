@@ -1,5 +1,4 @@
 package Card;
-import java.util.Scanner;
 
 import Logic.Logic;
 import Runner.Controller;
@@ -19,51 +18,24 @@ public class SpecialFunction {
 	 * @param controller
 	 */
 	public void SpecialFunc(Card cardPlayed, Deck deck, Logic logic, Controller controller) {
-		boolean turn = logic.isClockwise();
 		/** Draw 2 card functionality */
 		if (cardPlayed.getNumber().equals("Draw 2")) {
 			playerCheck(logic,controller);
 			deck.draw(2, nextPlayer);
-			if (turn) {
-				int playerTurn = logic.getPlayerTurn();
-				logic.setPlayerTurn(playerTurn + 2);
-			} else {
-				int playerTurn = logic.getPlayerTurn();
-				logic.setPlayerTurn(playerTurn - 2);
-			}
-				
+			turnAdjuster(2,controller,logic);
 		/** Reverse card functionality */
 		} else if (cardPlayed.getNumber().equals("Reverse")) {
-			if (turn) {
-				logic.setPlayerTurn(logic.getPlayerTurn()-1);
-			} else {
-				logic.setPlayerTurn(logic.getPlayerTurn() + 1);
-			}
+			turnAdjuster(1,controller,logic);
 			logic.setClockwise(!logic.isClockwise());
-			
 		/** Skip card functionality */
 		} else if (cardPlayed.getNumber().equals("Skip")) {
-			if (turn) {
-				int playerTurn = logic.getPlayerTurn();
-				logic.setPlayerTurn(playerTurn + 2);
-
-			} else {
-				int playerTurn = logic.getPlayerTurn();
-				logic.setPlayerTurn(playerTurn - 2);
-			}
+			turnAdjuster(2,controller,logic);
 		/** Wild card functionality */
 		} else if (cardPlayed.getNumber().equals("Wild") || cardPlayed.getSpecval() == -1) { //-1 specval: variable to determine wildcards for AI
 			if (logic.getPlayerTurn() == 1) {
 				WildCard(controller);
 			}
-			if (turn) {
-				int playerTurn = logic.getPlayerTurn();
-				logic.setPlayerTurn(playerTurn + 1);
-
-			} else {
-				int playerTurn = logic.getPlayerTurn();
-				logic.setPlayerTurn(playerTurn - 1);
-			}
+			turnAdjuster(1,controller,logic);
 		/** Wild Draw 4 functionality */
 		} else if (cardPlayed.getNumber().equals("Wild Draw 4") || cardPlayed.getSpecval() == -2) {//-2 specval: variable to determine wild draw 4 for AI
 			if (logic.getPlayerTurn() == 1) {
@@ -71,21 +43,10 @@ public class SpecialFunction {
 			}
 			playerCheck(logic, controller);
 			deck.draw(4, nextPlayer);
-			if (turn) {
-				int playerTurn = logic.getPlayerTurn();
-				logic.setPlayerTurn(playerTurn + 2);
-			} else {
-				int playerTurn = logic.getPlayerTurn();
-				logic.setPlayerTurn(playerTurn - 2);
-			}
+			turnAdjuster(2,controller,logic);
 		}
 		else {
-			if (turn) {
-				logic.setPlayerTurn(logic.getPlayerTurn()+1);
-			}
-			else {
-				logic.setPlayerTurn(logic.getPlayerTurn()-1);
-			}
+			turnAdjuster(1,controller,logic);
 		}
 	}
 	
@@ -107,6 +68,22 @@ public class SpecialFunction {
 		} else if (color == "GREEN") {		
 			SpecialCard scard = new SpecialCard(3, -1);
 			controller.setCardPlayed(scard);
+		}
+	}
+	
+	/**Called by SpecialFunc after a successful card is played
+	 * Method is used to increment player turns after every successful card is played. Skips, Draw 4s and Draw 2s set the adjustment to 2 (skipping a players turn)
+	 * @param int adjustment(1 for regular cards,wilds and reverses. 2 for skips, draw 4s and draw 2s)
+	 * @param controller instance of Controller
+	 * @param logic instance of Logic
+	 */
+	public void turnAdjuster(int adjustment, Controller controller,Logic logic) {
+		boolean turn = logic.isClockwise();
+		int playerTurn = logic.getPlayerTurn();
+		if (turn) {
+			logic.setPlayerTurn(playerTurn + adjustment);
+		} else {
+			logic.setPlayerTurn(playerTurn - adjustment);
 		}
 	}
 	

@@ -115,7 +115,6 @@ public class UnoGUI extends JFrame {
 	 */
 
 	public void display(Controller game, ActionListener listener) {
-		System.out.println("IN DISPLAY **********************");
 		gameWindow.setTitle("UNO");
 		
 		gameWindow.getContentPane().removeAll();
@@ -230,8 +229,15 @@ public class UnoGUI extends JFrame {
 		wildCardWindow.setModal(true);
 		wildCardWindow.setVisible(true);
 		wildCardWindow.getContentPane().repaint();
-
-
+	}
+	
+	public void WinnerWindow(String winningMessage) {
+		JDialog winnerBox = new JDialog();
+		JLabel winner = new JLabel(winningMessage);
+		winnerBox.getContentPane().add(winner, BorderLayout.CENTER);
+		winnerBox.pack();
+		winnerBox.setModal(true);
+		winnerBox.setVisible(true);
 	}
 
 	public void setBackgroundColor(Card aCard, JLabel topCardLabel) {

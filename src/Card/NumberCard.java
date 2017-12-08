@@ -3,7 +3,7 @@ package Card;
 public class NumberCard extends Card{
 	
 	private String number;
-	public int specval;
+	private int specval;
 	
 	@Override
 	public String getNumber() {
