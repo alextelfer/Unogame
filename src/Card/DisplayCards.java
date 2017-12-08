@@ -49,13 +49,9 @@ public class DisplayCards{
      * @param player4
      */
     public void howManyCards(ArrayList<Card> player1, ArrayList<Card> player2,ArrayList<Card> player3,ArrayList<Card> player4){
-        int player1Cards = player1.size();
-        int player2Cards = player2.size();
-        int player3Cards = player3.size();
-        int player4Cards = player4.size();
-        System.out.println("Player 1 has : " + player1Cards + " Cards");
-        System.out.println("Player 2 has : " + player2Cards + " Cards");
-        System.out.println("Player 3 has : " + player3Cards + " Cards");
-        System.out.println("Player 4 has : " + player4Cards + " Cards");
+        System.out.println("Player 1 has : " + player1.size() + " Cards");
+        System.out.println("Player 2 has : " + player2.size() + " Cards");
+        System.out.println("Player 3 has : " + player3.size() + " Cards");
+        System.out.println("Player 4 has : " + player4.size() + " Cards");
     } 
 }

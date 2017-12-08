@@ -33,7 +33,7 @@ public class UnoActionPerformer implements ActionListener{
 	@param an ActionEvent (a button press) in order to carry out actions accordingly 
 	*/
 	public void actionPerformed(ActionEvent event){
-		if (event.getActionCommand().equals("YELLOW") || event.getActionCommand().equals("GREEN") || event.getActionCommand().equals("BLUE") || event.getActionCommand().equals("RED")) {
+		if (event.getActionCommand().equals("Yellow") || event.getActionCommand().equals("Green") || event.getActionCommand().equals("Blue") || event.getActionCommand().equals("Red")) {
 			controller.setColorWild(event.getActionCommand());
 			gui.clearWildCardButtons();
 		}

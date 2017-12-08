@@ -52,10 +52,10 @@ public class UnoGUI extends JFrame {
 	private JPanel playerPanel = new JPanel(new FlowLayout());
 	private JPanel centerPanel = new JPanel(new GridBagLayout());
 	
-	JButton redColor = new JButton("RED");
-	JButton yellowColor = new JButton("YELLOW");
-	JButton greenColor = new JButton("GREEN");
-	JButton blueColor = new JButton("BLUE");
+	JButton redColor = new JButton("Red");
+	JButton yellowColor = new JButton("Yellow");
+	JButton greenColor = new JButton("Green");
+	JButton blueColor = new JButton("Blue");
 	
 	JLabel topCardLabel = new JLabel("test", JLabel.CENTER);
 	Border blackline = BorderFactory.createLineBorder(Color.black);
@@ -115,7 +115,6 @@ public class UnoGUI extends JFrame {
 	 */
 
 	public void display(Controller game, ActionListener listener) {
-		System.out.println("IN DISPLAY **********************");
 		gameWindow.setTitle("UNO");
 		
 		gameWindow.getContentPane().removeAll();
@@ -174,13 +173,13 @@ public class UnoGUI extends JFrame {
 			} else if (aCard instanceof SpecialCard) {
 				card.setFont(new Font("Arial", Font.PLAIN, 19));
 			}
-			if (aCard.getColor() == "Red ") {
+			if (aCard.getColor() == "Red") {
 				card.setBackground(Color.RED);
-			} else if (aCard.getColor() == "Blue ") {
+			} else if (aCard.getColor() == "Blue") {
 				card.setBackground(blueCard);
-			} else if (aCard.getColor() == "Yellow ") {
+			} else if (aCard.getColor() == "Yellow") {
 				card.setBackground(Color.YELLOW);
-			} else if (aCard.getColor() == "Green ") {
+			} else if (aCard.getColor() == "Green") {
 				card.setBackground(Color.GREEN);
 			} else {
 				card.setBackground(Color.LIGHT_GRAY);
@@ -209,19 +208,19 @@ public class UnoGUI extends JFrame {
 		prompt.setAlignmentY(CENTER_ALIGNMENT);
 		promptPanel.add(prompt);
 		wildCardWindow.getContentPane().add(promptPanel, BorderLayout.NORTH);
-		redColor.setActionCommand("RED");
+		redColor.setActionCommand("Red");
 		redColor.addActionListener(listener);
 		redColor.setBackground(Color.RED);
 		wildPanel.add(redColor);
-		blueColor.setActionCommand("BLUE");
+		blueColor.setActionCommand("Blue");
 		blueColor.addActionListener(listener);
 		blueColor.setBackground(Color.BLUE);
 		wildPanel.add(blueColor);
-		yellowColor.setActionCommand("YELLOW");
+		yellowColor.setActionCommand("Yellow");
 		yellowColor.addActionListener(listener);
 		yellowColor.setBackground(Color.YELLOW);
 		wildPanel.add(yellowColor);
-		greenColor.setActionCommand("GREEN");
+		greenColor.setActionCommand("Green");
 		greenColor.addActionListener(listener);
 		greenColor.setBackground(Color.GREEN);
 		wildPanel.add(greenColor);
@@ -230,18 +229,25 @@ public class UnoGUI extends JFrame {
 		wildCardWindow.setModal(true);
 		wildCardWindow.setVisible(true);
 		wildCardWindow.getContentPane().repaint();
-
-
+	}
+	
+	public void WinnerWindow(String winningMessage) {
+		JDialog winnerBox = new JDialog();
+		JLabel winner = new JLabel(winningMessage);
+		winnerBox.getContentPane().add(winner, BorderLayout.CENTER);
+		winnerBox.pack();
+		winnerBox.setModal(true);
+		winnerBox.setVisible(true);
 	}
 
 	public void setBackgroundColor(Card aCard, JLabel topCardLabel) {
-		if (aCard.getColor() == "Red ") {
+		if (aCard.getColor() == "Red") {
 			topCardLabel.setBackground(Color.RED);
-		} else if (aCard.getColor() == "Blue ") {
+		} else if (aCard.getColor() == "Blue") {
 			topCardLabel.setBackground(blueCard);
-		} else if (aCard.getColor() == "Yellow ") {
+		} else if (aCard.getColor() == "Yellow") {
 			topCardLabel.setBackground(Color.YELLOW);
-		} else if (aCard.getColor() == "Green ") {
+		} else if (aCard.getColor() == "Green") {
 			topCardLabel.setBackground(Color.GREEN);
 		}
 	}

@@ -3,9 +3,13 @@ package Card;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Runner.Controller;
+
 public class Deck {
 	
 	private ArrayList <Card> unoDeck = new ArrayList <Card> ();
+	
+	private Controller controller;
 		
 	/** Getter for unoDeck
 	 * @return reference of unoDeck
@@ -17,7 +21,8 @@ public class Deck {
 	 * 	Creates the Deck of 4 0's, 8 1-9's, 6 Special cards, 1 Wild, 
 	 *  and 1 Wild Draw 4 for each color
 	 */
-	public Deck(){
+	public Deck(Controller controller){
+		this.controller = controller;
 		/** Creating Zero number cards */
 		for (int colval = 0; colval <= 3; colval++ ) {
 			unoDeck.add(new NumberCard(colval, 0));
@@ -46,14 +51,22 @@ public class Deck {
 		}
 	}
 	
-	/** Method that picks draws random cards to player hand
+	/** Method that picks draws random cards to player hand and recreates the deck from the discard pile if the original unoDeck runs out of cards
 	 * @param numOfCards
 	 * @param player
 	 */
 	public void draw(int numOfCards, ArrayList<Card> player){
+		if (unoDeck.size() < 1) {
+			unoDeck.addAll(controller.getDiscardPile());
+			controller.clearDiscardPile();
+		}
 		Random rand = new Random();
 		for (int i=0; i <numOfCards; i++)
-			player.add(unoDeck.remove(rand.nextInt(unoDeck.size())) );
+			try {
+				player.add(unoDeck.remove(rand.nextInt(unoDeck.size())) );
+			} catch (IllegalArgumentException e) {
+				System.out.println("Deck changing error: Deck size: " + unoDeck.size());
+			}
 	}
 	
 	/** Method that picks a Number card for Top card
