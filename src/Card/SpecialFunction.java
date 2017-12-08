@@ -10,34 +10,31 @@ public class SpecialFunction {
 	public int specval;
 	
 	private ArrayList<Card>nextPlayer = new ArrayList<Card>();
+	public static final int WILD_ARTIFICIAL_CARD_SPECVAL = -1;
+	public static final int WILD_DRAW4_ARTIFICIAL_CARD_SPECVAL = -2;
 
 	/** Method that implements all the special card functionality
 	 * @param cardPlayed
-	 * @param deck
-	 * @param logic
-	 * @param controller
+	 * @param deck instance of Deck
+	 * @param logic instance of Logic
+	 * @param controller instance of Controller
 	 */
 	public void SpecialFunc(Card cardPlayed, Deck deck, Logic logic, Controller controller) {
-		/** Draw 2 card functionality */
 		if (cardPlayed.getNumber().equals("Draw 2")) {
 			playerCheck(logic,controller);
 			deck.draw(2, nextPlayer);
 			logic.turnAdjuster(2,controller,logic);
-		/** Reverse card functionality */
 		} else if (cardPlayed.getNumber().equals("Reverse")) {
 			logic.turnAdjuster(1,controller,logic);
 			logic.setClockwise(!logic.isClockwise());
-		/** Skip card functionality */
 		} else if (cardPlayed.getNumber().equals("Skip")) {
 			logic.turnAdjuster(2,controller,logic);
-		/** Wild card functionality */
-		} else if (cardPlayed.getNumber().equals("Wild") || cardPlayed.getSpecval() == -1) { //-1 specval: variable to determine wildcards for AI
+		} else if (cardPlayed.getNumber().equals("Wild") || cardPlayed.getSpecval() == WILD_ARTIFICIAL_CARD_SPECVAL) {
 			if (logic.getPlayerTurn() == 1) {
 				WildCard(controller);
 			}
 			logic.turnAdjuster(1,controller,logic);
-		/** Wild Draw 4 functionality */
-		} else if (cardPlayed.getNumber().equals("Wild Draw 4") || cardPlayed.getSpecval() == -2) {//-2 specval: variable to determine wild draw 4 for AI
+		} else if (cardPlayed.getNumber().equals("Wild Draw 4") || cardPlayed.getSpecval() == WILD_DRAW4_ARTIFICIAL_CARD_SPECVAL) {
 			if (logic.getPlayerTurn() == 1) {
 				WildCard(controller);
 			}
